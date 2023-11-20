@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Cronusqiu Wiki</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Nov 2023 10:13:13 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 20 Nov 2023 10:24:01 +0800</lastBuildDate>
     <atom:link href="https://cronusqiu90.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang: 01 环境搭建</title>
+      <link>https://cronusqiu90.github.io/post/golang-01-install/</link>
+      <pubDate>Mon, 20 Nov 2023 10:24:01 +0800</pubDate>
+      <guid>https://cronusqiu90.github.io/post/golang-01-install/</guid>
+      <description>下载与安装 设置环境 确认环境 </description>
+    </item>
     <item>
       <title>Welcome</title>
       <link>https://cronusqiu90.github.io/post/welcome/</link>

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 迷途小狼崽的打怪升级之路</title><link>https://cronusqiu90.github.io/categories/python/</link><description>Recent content in Python on 迷途小狼崽的打怪升级之路</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 31 May 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://cronusqiu90.github.io/categories/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 基础知识</title><link>https://cronusqiu90.github.io/p/python-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link><pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate><guid>https://cronusqiu90.github.io/p/python-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid><description>&lt;h1 id="变量和类型">变量和类型
+&lt;/h1>&lt;p>变量是一种存储数据的载体，是存储器中存储数据的一块内存空间，变量的值可以被读取和修改，这是所有计算和控制的基础。计算机能处理各种各样的数据类型，像数字、文本、音视频、图像&amp;hellip;&amp;hellip; 每种数据类型都有其独特的属性和结构，那就需要定义不同的存储类型。&lt;/p>
+&lt;p>Python中的数据类型很多，也支持自定义数据类型:&lt;/p>
+&lt;ul>
+&lt;li>数字: 整数、浮点数、复数、布尔值。&lt;/li>
+&lt;li>字符串：str，用单引号或双引号括起来的任意文本，可以包含各种字符。&lt;/li>
+&lt;li>列表：list，用方括号括起来的元素序列，可以包含不同类型的数据。&lt;/li>
+&lt;li>元组：tuple，用圆括号括起来的元素序列，元素不能修改。&lt;/li>
+&lt;li>字典：dict，用花括号括起来的键值对，键必须是不可变类型，值可以是任意类型。&lt;/li>
+&lt;li>集合：set，用花括号括起来的元素序列，元素无序且不重复。&lt;/li>
+&lt;/ul>
+&lt;h2 id="命名规则">命名规则
+&lt;/h2>&lt;p>对于每个变量我们需要给它取一个名字，就如同我们每个人都有属于自己的响亮的名字一样。在Python中，变量命名需要遵循以下规则：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>硬性规则：&lt;/p>
+&lt;ul>
+&lt;li>变量名由字母、数字和下划线构成，数字不能开头；&lt;/li>
+&lt;li>大小写敏感；&lt;/li>
+&lt;li>不要跟关键字和系统保留字冲突；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>非硬性规则:&lt;/p>
+&lt;ul>
+&lt;li>变量名尽量简短、好记忆；&lt;/li>
+&lt;li>变量名要能表达实际意义；&lt;/li>
+&lt;li>遵循项目组的风格&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>Tips：重视给变量的命名，好习惯真的很重要！&lt;/p>
+&lt;h2 id="使用方法">使用方法
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 数字&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 字符串&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">s1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;hello world&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="类型转换">类型转换
+&lt;/h2>&lt;p>内置的函数对变量类型进行转换:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>int()&lt;/code>：将一个数值或字符串转换成整数，可以指定进制。&lt;/li>
+&lt;li>&lt;code>float()&lt;/code>：将一个字符串转换成浮点数。&lt;/li>
+&lt;li>&lt;code>str()&lt;/code>：将指定的对象转换成字符串形式，可以指定编码。&lt;/li>
+&lt;li>&lt;code>chr()&lt;/code>：将整数转换成该编码对应的字符串（一个字符）。&lt;/li>
+&lt;li>&lt;code>ord()&lt;/code>：将字符串（一个字符）转换成对应的编码（整数）&lt;/li>
+&lt;/ul>
+&lt;h1 id="运算符号">运算符号
+&lt;/h1>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>运算符&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>[]&lt;/code> &lt;code>[:]&lt;/code>&lt;/td>
+&lt;td>下标，切片&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>**&lt;/code>&lt;/td>
+&lt;td>指数&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>~&lt;/code> &lt;code>+&lt;/code> &lt;code>-&lt;/code>&lt;/td>
+&lt;td>按位取反, 正负号&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>*&lt;/code> &lt;code>/&lt;/code> &lt;code>%&lt;/code> &lt;code>//&lt;/code>&lt;/td>
+&lt;td>乘，除，模，整除&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>+&lt;/code> &lt;code>-&lt;/code>&lt;/td>
+&lt;td>加，减&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>&amp;gt;&amp;gt;&lt;/code> &lt;code>&amp;lt;&amp;lt;&lt;/code>&lt;/td>
+&lt;td>右移，左移&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>&amp;amp;&lt;/code>&lt;/td>
+&lt;td>按位与&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>^&lt;/code> &lt;code>|&lt;/code>&lt;/td>
+&lt;td>按位异或，按位或&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>&amp;lt;=&lt;/code> &lt;code>&amp;lt;&lt;/code> &lt;code>&amp;gt;&lt;/code> &lt;code>&amp;gt;=&lt;/code>&lt;/td>
+&lt;td>小于等于，小于，大于，大于等于&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>==&lt;/code> &lt;code>!=&lt;/code>&lt;/td>
+&lt;td>等于，不等于&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>is&lt;/code> &lt;code>is not&lt;/code>&lt;/td>
+&lt;td>身份运算符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>in&lt;/code> &lt;code>not in&lt;/code>&lt;/td>
+&lt;td>成员运算符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>not&lt;/code> &lt;code>or&lt;/code> &lt;code>and&lt;/code>&lt;/td>
+&lt;td>逻辑运算符&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Tip: 多用用就熟悉了，在实际开发中不用太纠结优先级，牢记基本原则，如果太复杂了，强烈建议使用括号！&lt;/p>
+&lt;h2 id="赋值运算">赋值运算
+&lt;/h2>&lt;p>将 &lt;code>=&lt;/code> 号右侧的值赋值给左侧的变量；
+注意: Python 对变量类型没有限制，可以随时给变量赋任何类型的值，灵活也比较坑爹；&lt;/p>
+&lt;h2 id="比较运算">比较运算
+&lt;/h2>&lt;p>也称为关系运算符，包括&lt;code>==、!=、&amp;lt;、&amp;gt;、&amp;lt;=、&amp;gt;=&lt;/code>，没啥好说的，就是比较大小；&lt;/p>
+&lt;h2 id="逻辑运算">逻辑运算
+&lt;/h2>&lt;p>有三个，包括 &lt;code>and, or, not&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>and: 两个条件都为真，结果才为真；&lt;/li>
+&lt;li>or: 两个条件有一个为真，结果就为真；&lt;/li>
+&lt;li>not: 取反，如果条件为真，结果为假，反之为真；
+需要注意的就是短路效果；&lt;/li>
+&lt;/ul>
+&lt;h2 id="位运算">位运算
+&lt;/h2>&lt;p>按位运算符，包括&lt;code>&amp;amp;、|、^、~、&amp;lt;&amp;lt;、&amp;gt;&amp;gt;&lt;/code>，就是对二进制位进行操作；&lt;/p>
+&lt;h1 id="分支结构">分支结构
+&lt;/h1>&lt;p>关键词: &lt;code>if,elif, else&lt;/code>，可以根据条件选择执行的代码块；&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">password&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;admin&amp;#34;&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">password&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;123456&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Welcome admin!&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">elif&lt;/span> &lt;span class="n">name&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;user&amp;#34;&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">password&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;654321&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Welcome &lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s2">!&amp;#34;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">name&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Invalid username or password.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Tip: 如果逻辑中有多个 &lt;code>if&lt;/code> 分支，建议使用 &lt;code>dict&lt;/code> 来替代，后续会讲到；&lt;/p>
+&lt;h1 id="循环结构">循环结构
+&lt;/h1>&lt;p>关键词: &lt;code>for,while, continue, break&lt;/code>，可以重复执行代码块；
+场景: 需要重复执行某条或某些指令&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># for &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">sum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">101&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">sum&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">i&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;sum=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># while&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">sum&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="n">index&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">sum&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">index&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;sum=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">sum&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">100&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">continue&lt;/span> &lt;span class="c1"># 跳过 100 的倍数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">900&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span> &lt;span class="c1"># 退出循环&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;i=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="实际运用例子">实际运用例子
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 寻找水仙花数&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 它是一个3位数，该数字每个位上数字的立方之和正好等于它本身&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">low&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">high&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="n">low&lt;/span> &lt;span class="o">**&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">mid&lt;/span> &lt;span class="o">**&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">high&lt;/span> &lt;span class="o">**&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 正整数的反转&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 将12345变成54321&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;num = &amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">reversed_num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">reversed_num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">reversed_num&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">num&lt;/span> &lt;span class="o">//=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">reversed_num&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#《百钱百鸡》问题&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 公鸡5元一只，母鸡3元一只，小鸡1元三只，用100块钱买一百只鸡，问公鸡、母鸡、小鸡各有多少只？&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">33&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">z&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">100&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">y&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">z&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;公鸡: &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">只, 母鸡: &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">只, 小鸡: &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">只&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="函数">函数
+&lt;/h1>&lt;p>函数：将某些功能的代码封装起来，可以重复使用，提高代码的复用性。例如&lt;code>加、减、乘、除、开方、取余、取整......&lt;/code>；&lt;/p>
+&lt;h2 id="定义">定义
+&lt;/h2>&lt;p>Signure: &lt;code>关键词 函数名(参数1,参数2,参数3...)&lt;/code>&lt;/p>
+&lt;ul>
+&lt;li>关键词: &lt;code>def&lt;/code>&lt;/li>
+&lt;li>函数名: 自定义的函数名，可以是任意合法的标识符&lt;/li>
+&lt;li>参数: 传入函数的变量，可以有多个，类型可以不同，支持可变参数、默认值等特性&lt;/li>
+&lt;/ul>
+&lt;p>例如:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">num&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">num&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">r&lt;/span> &lt;span class="o">*=&lt;/span> &lt;span class="n">n&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">r&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">m&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="模块">模块
+&lt;/h1>&lt;p>Python 中 每个 &lt;code>py&lt;/code> 文件就是一个模块；
+将一系列相关函数、变量、类封装到一个模块中，可以更方便地使用；例如将数学上的计算方法，都封装到&lt;code>math.py&lt;/code> 文件中，通过 &lt;code>import math&lt;/code> 导入模块，就可以使用 &lt;code>math&lt;/code> 库中的函数了；&lt;/p></description></item><item><title>Python 学习路线图</title><link>https://cronusqiu90.github.io/p/python-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE/</link><pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate><guid>https://cronusqiu90.github.io/p/python-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE/</guid><description>&lt;h1 id="环境的搭建">环境的搭建
+&lt;/h1>&lt;h1 id="基础知识">基础知识
+&lt;/h1>&lt;ul>
+&lt;li>语法、变量和类型、数字和字符串、运算符&lt;/li>
+&lt;li>分支、循环结构&lt;/li>
+&lt;li>函数、模块&lt;/li>
+&lt;li>常用数据结构、字符串和正则表达式&lt;/li>
+&lt;li>面向对象
+&lt;ul>
+&lt;li>类和对象，属性和方法，抽象,封装，继承，多态等&lt;/li>
+&lt;li>魔术属性和方法, mixin, metaclass&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>文件和异常&lt;/li>
+&lt;li>进程和线程&lt;/li>
+&lt;li>网络操作&lt;/li>
+&lt;li>高阶函数、Lambda、闭包、装饰器&lt;/li>
+&lt;li>迭代起、生成器&lt;/li>
+&lt;li>并发、异步&lt;/li>
+&lt;/ul>
+&lt;h1 id="管理工具">管理工具
+&lt;/h1>&lt;ul>
+&lt;li>版本控制: svn, git&lt;/li>
+&lt;li>运行环境: venv, virtualenv, pyenv&lt;/li>
+&lt;li>依赖库: Pip, conda, Poetry&lt;/li>
+&lt;li>打包发布： Wheel, Pypi&lt;/li>
+&lt;li>代码格式化检查: isort, black, mypy, pylint&lt;/li>
+&lt;li>注释文档： Sphinx&lt;/li>
+&lt;li>测试工具: unitest, pyunit, pytest&lt;/li>
+&lt;li>自动化工具: tox&lt;/li>
+&lt;/ul>
+&lt;h1 id="中间件">中间件
+&lt;/h1>&lt;ul>
+&lt;li>数据库：SQLAlchemy （sqlite, mysql）&lt;/li>
+&lt;li>缓存: Redis, Memcached&lt;/li>
+&lt;li>队列: pika (RabbitMQ)&lt;/li>
+&lt;/ul>
+&lt;h1 id="框架">框架
+&lt;/h1>&lt;ul>
+&lt;li>Web框架: Tornado, Django, Flask, FastAPI&lt;/li>
+&lt;li>爬虫: Scrapy&lt;/li>
+&lt;li>分布式框架：Celery&lt;/li>
+&lt;/ul>
+&lt;h1 id="项目">项目
+&lt;/h1>&lt;ul>
+&lt;li>部署工具: ansible, fabric, docker&lt;/li>
+&lt;li>自动化测试&lt;/li>
+&lt;li>性能测试、调优&lt;/li>
+&lt;/ul>
+&lt;h1 id="数据处理分析">数据处理分析
+&lt;/h1>&lt;ul>
+&lt;li>NumPy, Pandas&lt;/li>
+&lt;li>可视化: matplotlib&lt;/li>
+&lt;/ul>
+&lt;h1 id="机器学习和深度学习">机器学习和深度学习
+&lt;/h1>&lt;ul>
+&lt;li>基础知识&lt;/li>
+&lt;li>K最近邻分类，决策树，贝叶斯分类，向量机，回归分析 &amp;hellip;&amp;hellip;&lt;/li>
+&lt;li>PyTorch&lt;/li>
+&lt;/ul></description></item></channel></rss>

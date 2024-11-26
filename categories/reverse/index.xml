@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>逆向 on 迷途小狼崽</title><link>https://cronusqiu90.github.io/categories/reverse/</link><description>Recent content in 逆向 on 迷途小狼崽</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 26 Nov 2024 00:00:01 +0000</lastBuildDate><atom:link href="https://cronusqiu90.github.io/categories/reverse/index.xml" rel="self" type="application/rss+xml"/><item><title>01 Frida 环境准备</title><link>https://cronusqiu90.github.io/p/01-frida-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</link><pubDate>Tue, 26 Nov 2024 00:00:01 +0000</pubDate><guid>https://cronusqiu90.github.io/p/01-frida-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</guid><description>&lt;h2 id="pc-端">&lt;a href="#pc-%e7%ab%af" class="header-anchor">&lt;/a>PC 端
+&lt;/h2>&lt;ul>
+&lt;li>推荐使用 &lt;code>Linux&lt;/code> 系统环境&lt;/li>
+&lt;li>&lt;code>Android Studio&lt;/code> &amp;amp; &lt;code>SDK&lt;/code>&lt;/li>
+&lt;li>&lt;code>Android Soursce Code&lt;/code>
+&lt;ol>
+&lt;li>&lt;a class="link" href="%60http://androidxref.com/%60" >androidxref&lt;/a> 这个目前最高版本是 9.0&lt;/li>
+&lt;li>&lt;a class="link" href="%60http://aospxref.com/%60" >aospxref&lt;/a> 好像挂了&lt;/li>
+&lt;li>&lt;a class="link" href="%60https://aosp.app/%60" >aosp.app&lt;/a> 目前最高版本是 14.0&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>运维工具 &lt;code>htop&lt;/code>, &lt;code>jnettop&lt;/code> (Linux)&lt;/li>
+&lt;/ul>
+&lt;h2 id="root-手机">&lt;a href="#root-%e6%89%8b%e6%9c%ba" class="header-anchor">&lt;/a>ROOT 手机
+&lt;/h2>&lt;ul>
+&lt;li>解 &lt;code>Bootloader&lt;/code> 锁&lt;/li>
+&lt;li>&lt;code>TWRP&lt;/code> 刷入 Recovery 分区&lt;/li>
+&lt;li>安装 &lt;code>Magisk&lt;/code>&lt;/li>
+&lt;li>刷 &lt;code>kali-nethunter&lt;/code> 系统（有条件的可以试试，提供一个完整的 &lt;code>Linux&lt;/code> 系统环境, 能使用&lt;code>strace&lt;/code>等命令）&lt;/li>
+&lt;/ul>
+&lt;h2 id="frida">&lt;a href="#frida" class="header-anchor">&lt;/a>Frida
+&lt;/h2>&lt;p>&lt;code>Frida&lt;/code> 是平台原生App的 &lt;code>Greasemonkey&lt;/code>，就是一种动态插桩工具，通过插入代码到原生App的内存空间去动态地监视和修改其行为。&lt;code>Greasemonkey&lt;/code> 是 &lt;code>Firefox &lt;/code>的一套插件体系，通过利用 &lt;code>Greasemonkey&lt;/code> 插入自定义的 &lt;code>JavaScript&lt;/code> 脚本可以定制网页的显示或行为方式。
+通俗来讲就是可以直接改变 &lt;code>Firefox&lt;/code> 对网页的编排方式，从而实现想要的任何功能。&lt;/p>
+&lt;p>PC端直接使用 &lt;code>pip&lt;/code> 安装&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">python -m venv venv
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">source&lt;/span> venv/bin/activate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pip install frida-tools &lt;span class="c1"># 自动安装最新版本的全系列工具&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>手机端安装对应版本的 &lt;a class="link" href="%60https://github.com/frida/frida/release%60" >frida-server&lt;/a>。&lt;/p>
+&lt;ul>
+&lt;li>选择与 PC 端 &lt;code>frida&lt;/code> 同版本；&lt;/li>
+&lt;li>选择与 手机同架构的版本（arm, amd, x86, x64等）；&lt;/li>
+&lt;/ul>
+&lt;h2 id="开发环境">&lt;a href="#%e5%bc%80%e5%8f%91%e7%8e%af%e5%a2%83" class="header-anchor">&lt;/a>开发环境
+&lt;/h2>&lt;ul>
+&lt;li>IDE: VSCode吧（安装 python, js 相关插件，主要是能自动提示和补全 API）&lt;/li>
+&lt;li>安装 nodejs 环境：不建议 &lt;code>apt | yum&lt;/code> 等命令在线安装，版本可能会比较低，去 &lt;code>github&lt;/code> 获取新版；&lt;/li>
+&lt;li>从 &lt;code>Github&lt;/code> 上下载模板工程 &lt;a class="link" href="%60https://github.com/oleavr/frida-agent-example.git%60" >frida-agent-example&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>00 Frida 学习路线</title><link>https://cronusqiu90.github.io/p/00-frida-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</link><pubDate>Tue, 26 Nov 2024 00:00:00 +0000</pubDate><guid>https://cronusqiu90.github.io/p/00-frida-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/</guid><description>&lt;ul>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> &lt;code>HOOK&lt;/code> 基础&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> 代码快速定位&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> &lt;code>HOOK Java&lt;/code> 层&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> &lt;code>HOOK Native&lt;/code> 层&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> &lt;code>壳&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> &lt;code>Xposed&lt;/code> 工具&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> 加解密算法&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;input disabled="" type="checkbox"> 抓包&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

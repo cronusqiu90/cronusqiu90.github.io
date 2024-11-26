@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 迷途小狼崽的打怪升级之路</title><link>https://cronusqiu90.github.io/tags/python/</link><description>Recent content in Python on 迷途小狼崽的打怪升级之路</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 31 May 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://cronusqiu90.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python 基础知识</title><link>https://cronusqiu90.github.io/p/python-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link><pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate><guid>https://cronusqiu90.github.io/p/python-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid><description>&lt;h1 id="变量和类型">变量和类型
-&lt;/h1>&lt;p>变量是一种存储数据的载体，是存储器中存储数据的一块内存空间，变量的值可以被读取和修改，这是所有计算和控制的基础。计算机能处理各种各样的数据类型，像数字、文本、音视频、图像&amp;hellip;&amp;hellip; 每种数据类型都有其独特的属性和结构，那就需要定义不同的存储类型。&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on 迷途小狼崽</title><link>https://cronusqiu90.github.io/tags/python/</link><description>Recent content in Python on 迷途小狼崽</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 31 May 2015 00:00:01 +0000</lastBuildDate><atom:link href="https://cronusqiu90.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>01 Python 基础知识</title><link>https://cronusqiu90.github.io/p/01-python-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</link><pubDate>Sun, 31 May 2015 00:00:01 +0000</pubDate><guid>https://cronusqiu90.github.io/p/01-python-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</guid><description>&lt;h2 id="变量和类型">&lt;a href="#%e5%8f%98%e9%87%8f%e5%92%8c%e7%b1%bb%e5%9e%8b" class="header-anchor">&lt;/a>变量和类型
+&lt;/h2>&lt;p>变量是一种存储数据的载体，是存储器中存储数据的一块内存空间，变量的值可以被读取和修改，这是所有计算和控制的基础。计算机能处理各种各样的数据类型，像数字、文本、音视频、图像&amp;hellip;&amp;hellip; 每种数据类型都有其独特的属性和结构，那就需要定义不同的存储类型。&lt;/p>
 &lt;p>Python中的数据类型很多，也支持自定义数据类型:&lt;/p>
 &lt;ul>
 &lt;li>数字: 整数、浮点数、复数、布尔值。&lt;/li>
@@ -9,8 +9,8 @@
 &lt;li>字典：dict，用花括号括起来的键值对，键必须是不可变类型，值可以是任意类型。&lt;/li>
 &lt;li>集合：set，用花括号括起来的元素序列，元素无序且不重复。&lt;/li>
 &lt;/ul>
-&lt;h2 id="命名规则">命名规则
-&lt;/h2>&lt;p>对于每个变量我们需要给它取一个名字，就如同我们每个人都有属于自己的响亮的名字一样。在Python中，变量命名需要遵循以下规则：&lt;/p>
+&lt;h3 id="命名规则">&lt;a href="#%e5%91%bd%e5%90%8d%e8%a7%84%e5%88%99" class="header-anchor">&lt;/a>命名规则
+&lt;/h3>&lt;p>对于每个变量我们需要给它取一个名字，就如同我们每个人都有属于自己的响亮的名字一样。在Python中，变量命名需要遵循以下规则：&lt;/p>
 &lt;ul>
 &lt;li>
 &lt;p>硬性规则：&lt;/p>
@@ -30,8 +30,8 @@
 &lt;/li>
 &lt;/ul>
 &lt;p>Tips：重视给变量的命名，好习惯真的很重要！&lt;/p>
-&lt;h2 id="使用方法">使用方法
-&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
+&lt;h3 id="使用方法">&lt;a href="#%e4%bd%bf%e7%94%a8%e6%96%b9%e6%b3%95" class="header-anchor">&lt;/a>使用方法
+&lt;/h3>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
 &lt;/span>&lt;span class="lnt"> 2
@@ -57,8 +57,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">s1&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="类型转换">类型转换
-&lt;/h2>&lt;p>内置的函数对变量类型进行转换:&lt;/p>
+&lt;/div>&lt;h3 id="类型转换">&lt;a href="#%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2" class="header-anchor">&lt;/a>类型转换
+&lt;/h3>&lt;p>内置的函数对变量类型进行转换:&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>int()&lt;/code>：将一个数值或字符串转换成整数，可以指定进制。&lt;/li>
 &lt;li>&lt;code>float()&lt;/code>：将一个字符串转换成浮点数。&lt;/li>
@@ -66,8 +66,8 @@
 &lt;li>&lt;code>chr()&lt;/code>：将整数转换成该编码对应的字符串（一个字符）。&lt;/li>
 &lt;li>&lt;code>ord()&lt;/code>：将字符串（一个字符）转换成对应的编码（整数）&lt;/li>
 &lt;/ul>
-&lt;h1 id="运算符号">运算符号
-&lt;/h1>&lt;table>
+&lt;h2 id="运算符号">&lt;a href="#%e8%bf%90%e7%ae%97%e7%ac%a6%e5%8f%b7" class="header-anchor">&lt;/a>运算符号
+&lt;/h2>&lt;table>
 &lt;thead>
 &lt;tr>
 &lt;th>运算符&lt;/th>
@@ -130,23 +130,23 @@
 &lt;/tbody>
 &lt;/table>
 &lt;p>Tip: 多用用就熟悉了，在实际开发中不用太纠结优先级，牢记基本原则，如果太复杂了，强烈建议使用括号！&lt;/p>
-&lt;h2 id="赋值运算">赋值运算
-&lt;/h2>&lt;p>将 &lt;code>=&lt;/code> 号右侧的值赋值给左侧的变量；
+&lt;h3 id="赋值运算">&lt;a href="#%e8%b5%8b%e5%80%bc%e8%bf%90%e7%ae%97" class="header-anchor">&lt;/a>赋值运算
+&lt;/h3>&lt;p>将 &lt;code>=&lt;/code> 号右侧的值赋值给左侧的变量；
 注意: Python 对变量类型没有限制，可以随时给变量赋任何类型的值，灵活也比较坑爹；&lt;/p>
-&lt;h2 id="比较运算">比较运算
-&lt;/h2>&lt;p>也称为关系运算符，包括&lt;code>==、!=、&amp;lt;、&amp;gt;、&amp;lt;=、&amp;gt;=&lt;/code>，没啥好说的，就是比较大小；&lt;/p>
-&lt;h2 id="逻辑运算">逻辑运算
-&lt;/h2>&lt;p>有三个，包括 &lt;code>and, or, not&lt;/code>。&lt;/p>
+&lt;h3 id="比较运算">&lt;a href="#%e6%af%94%e8%be%83%e8%bf%90%e7%ae%97" class="header-anchor">&lt;/a>比较运算
+&lt;/h3>&lt;p>也称为关系运算符，包括&lt;code>==、!=、&amp;lt;、&amp;gt;、&amp;lt;=、&amp;gt;=&lt;/code>，没啥好说的，就是比较大小；&lt;/p>
+&lt;h3 id="逻辑运算">&lt;a href="#%e9%80%bb%e8%be%91%e8%bf%90%e7%ae%97" class="header-anchor">&lt;/a>逻辑运算
+&lt;/h3>&lt;p>有三个，包括 &lt;code>and, or, not&lt;/code>。&lt;/p>
 &lt;ul>
 &lt;li>and: 两个条件都为真，结果才为真；&lt;/li>
 &lt;li>or: 两个条件有一个为真，结果就为真；&lt;/li>
 &lt;li>not: 取反，如果条件为真，结果为假，反之为真；
 需要注意的就是短路效果；&lt;/li>
 &lt;/ul>
-&lt;h2 id="位运算">位运算
-&lt;/h2>&lt;p>按位运算符，包括&lt;code>&amp;amp;、|、^、~、&amp;lt;&amp;lt;、&amp;gt;&amp;gt;&lt;/code>，就是对二进制位进行操作；&lt;/p>
-&lt;h1 id="分支结构">分支结构
-&lt;/h1>&lt;p>关键词: &lt;code>if,elif, else&lt;/code>，可以根据条件选择执行的代码块；&lt;/p>
+&lt;h3 id="位运算">&lt;a href="#%e4%bd%8d%e8%bf%90%e7%ae%97" class="header-anchor">&lt;/a>位运算
+&lt;/h3>&lt;p>按位运算符，包括&lt;code>&amp;amp;、|、^、~、&amp;lt;&amp;lt;、&amp;gt;&amp;gt;&lt;/code>，就是对二进制位进行操作；&lt;/p>
+&lt;h2 id="分支结构">&lt;a href="#%e5%88%86%e6%94%af%e7%bb%93%e6%9e%84" class="header-anchor">&lt;/a>分支结构
+&lt;/h2>&lt;p>关键词: &lt;code>if,elif, else&lt;/code>，可以根据条件选择执行的代码块；&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -176,8 +176,8 @@
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>Tip: 如果逻辑中有多个 &lt;code>if&lt;/code> 分支，建议使用 &lt;code>dict&lt;/code> 来替代，后续会讲到；&lt;/p>
-&lt;h1 id="循环结构">循环结构
-&lt;/h1>&lt;p>关键词: &lt;code>for,while, continue, break&lt;/code>，可以重复执行代码块；
+&lt;h2 id="循环结构">&lt;a href="#%e5%be%aa%e7%8e%af%e7%bb%93%e6%9e%84" class="header-anchor">&lt;/a>循环结构
+&lt;/h2>&lt;p>关键词: &lt;code>for,while, continue, break&lt;/code>，可以重复执行代码块；
 场景: 需要重复执行某条或某些指令&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -227,8 +227,8 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;i=&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">i&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h1 id="实际运用例子">实际运用例子
-&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;/div>&lt;h2 id="实际运用例子">&lt;a href="#%e5%ae%9e%e9%99%85%e8%bf%90%e7%94%a8%e4%be%8b%e5%ad%90" class="header-anchor">&lt;/a>实际运用例子
+&lt;/h2>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
 &lt;/span>&lt;span class="lnt"> 2
@@ -288,10 +288,10 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;公鸡: &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">只, 母鸡: &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">只, 小鸡: &lt;/span>&lt;span class="si">%d&lt;/span>&lt;span class="s1">只&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">z&lt;/span>&lt;span class="p">))&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h1 id="函数">函数
-&lt;/h1>&lt;p>函数：将某些功能的代码封装起来，可以重复使用，提高代码的复用性。例如&lt;code>加、减、乘、除、开方、取余、取整......&lt;/code>；&lt;/p>
-&lt;h2 id="定义">定义
-&lt;/h2>&lt;p>Signure: &lt;code>关键词 函数名(参数1,参数2,参数3...)&lt;/code>&lt;/p>
+&lt;/div>&lt;h2 id="函数">&lt;a href="#%e5%87%bd%e6%95%b0" class="header-anchor">&lt;/a>函数
+&lt;/h2>&lt;p>函数：将某些功能的代码封装起来，可以重复使用，提高代码的复用性。例如&lt;code>加、减、乘、除、开方、取余、取整......&lt;/code>；&lt;/p>
+&lt;h3 id="定义">&lt;a href="#%e5%ae%9a%e4%b9%89" class="header-anchor">&lt;/a>定义
+&lt;/h3>&lt;p>Signure: &lt;code>关键词 函数名(参数1,参数2,参数3...)&lt;/code>&lt;/p>
 &lt;ul>
 &lt;li>关键词: &lt;code>def&lt;/code>&lt;/li>
 &lt;li>函数名: 自定义的函数名，可以是任意合法的标识符&lt;/li>
@@ -320,10 +320,10 @@
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="n">fac&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">n&lt;/span>&lt;span class="p">))&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h1 id="模块">模块
-&lt;/h1>&lt;p>Python 中 每个 &lt;code>py&lt;/code> 文件就是一个模块；
-将一系列相关函数、变量、类封装到一个模块中，可以更方便地使用；例如将数学上的计算方法，都封装到&lt;code>math.py&lt;/code> 文件中，通过 &lt;code>import math&lt;/code> 导入模块，就可以使用 &lt;code>math&lt;/code> 库中的函数了；&lt;/p></description></item><item><title>Python 学习路线图</title><link>https://cronusqiu90.github.io/p/python-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE/</link><pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate><guid>https://cronusqiu90.github.io/p/python-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE/</guid><description>&lt;h1 id="环境的搭建">环境的搭建
-&lt;/h1>&lt;h1 id="基础知识">基础知识
+&lt;/div>&lt;h2 id="模块">&lt;a href="#%e6%a8%a1%e5%9d%97" class="header-anchor">&lt;/a>模块
+&lt;/h2>&lt;p>Python 中 每个 &lt;code>py&lt;/code> 文件就是一个模块；
+将一系列相关函数、变量、类封装到一个模块中，可以更方便地使用；例如将数学上的计算方法，都封装到&lt;code>math.py&lt;/code> 文件中，通过 &lt;code>import math&lt;/code> 导入模块，就可以使用 &lt;code>math&lt;/code> 库中的函数了；&lt;/p></description></item><item><title>00 Python 学习路线图</title><link>https://cronusqiu90.github.io/p/00-python-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE/</link><pubDate>Sun, 31 May 2015 00:00:00 +0000</pubDate><guid>https://cronusqiu90.github.io/p/00-python-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF%E5%9B%BE/</guid><description>&lt;h1 id="环境的搭建">&lt;a href="#%e7%8e%af%e5%a2%83%e7%9a%84%e6%90%ad%e5%bb%ba" class="header-anchor">&lt;/a>环境的搭建
+&lt;/h1>&lt;h1 id="基础知识">&lt;a href="#%e5%9f%ba%e7%a1%80%e7%9f%a5%e8%af%86" class="header-anchor">&lt;/a>基础知识
 &lt;/h1>&lt;ul>
 &lt;li>语法、变量和类型、数字和字符串、运算符&lt;/li>
 &lt;li>分支、循环结构&lt;/li>
@@ -342,7 +342,7 @@
 &lt;li>迭代起、生成器&lt;/li>
 &lt;li>并发、异步&lt;/li>
 &lt;/ul>
-&lt;h1 id="管理工具">管理工具
+&lt;h1 id="管理工具">&lt;a href="#%e7%ae%a1%e7%90%86%e5%b7%a5%e5%85%b7" class="header-anchor">&lt;/a>管理工具
 &lt;/h1>&lt;ul>
 &lt;li>版本控制: svn, git&lt;/li>
 &lt;li>运行环境: venv, virtualenv, pyenv&lt;/li>
@@ -353,30 +353,30 @@
 &lt;li>测试工具: unitest, pyunit, pytest&lt;/li>
 &lt;li>自动化工具: tox&lt;/li>
 &lt;/ul>
-&lt;h1 id="中间件">中间件
+&lt;h1 id="中间件">&lt;a href="#%e4%b8%ad%e9%97%b4%e4%bb%b6" class="header-anchor">&lt;/a>中间件
 &lt;/h1>&lt;ul>
 &lt;li>数据库：SQLAlchemy （sqlite, mysql）&lt;/li>
 &lt;li>缓存: Redis, Memcached&lt;/li>
 &lt;li>队列: pika (RabbitMQ)&lt;/li>
 &lt;/ul>
-&lt;h1 id="框架">框架
+&lt;h1 id="框架">&lt;a href="#%e6%a1%86%e6%9e%b6" class="header-anchor">&lt;/a>框架
 &lt;/h1>&lt;ul>
 &lt;li>Web框架: Tornado, Django, Flask, FastAPI&lt;/li>
 &lt;li>爬虫: Scrapy&lt;/li>
 &lt;li>分布式框架：Celery&lt;/li>
 &lt;/ul>
-&lt;h1 id="项目">项目
+&lt;h1 id="项目">&lt;a href="#%e9%a1%b9%e7%9b%ae" class="header-anchor">&lt;/a>项目
 &lt;/h1>&lt;ul>
 &lt;li>部署工具: ansible, fabric, docker&lt;/li>
 &lt;li>自动化测试&lt;/li>
 &lt;li>性能测试、调优&lt;/li>
 &lt;/ul>
-&lt;h1 id="数据处理分析">数据处理分析
+&lt;h1 id="数据处理分析">&lt;a href="#%e6%95%b0%e6%8d%ae%e5%a4%84%e7%90%86%e5%88%86%e6%9e%90" class="header-anchor">&lt;/a>数据处理分析
 &lt;/h1>&lt;ul>
 &lt;li>NumPy, Pandas&lt;/li>
 &lt;li>可视化: matplotlib&lt;/li>
 &lt;/ul>
-&lt;h1 id="机器学习和深度学习">机器学习和深度学习
+&lt;h1 id="机器学习和深度学习">&lt;a href="#%e6%9c%ba%e5%99%a8%e5%ad%a6%e4%b9%a0%e5%92%8c%e6%b7%b1%e5%ba%a6%e5%ad%a6%e4%b9%a0" class="header-anchor">&lt;/a>机器学习和深度学习
 &lt;/h1>&lt;ul>
 &lt;li>基础知识&lt;/li>
 &lt;li>K最近邻分类，决策树，贝叶斯分类，向量机，回归分析 &amp;hellip;&amp;hellip;&lt;/li>

@@ -1,4 +1,39 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>迷途小狼崽</title><link>https://cronusqiu90.github.io/</link><description>迷途小狼崽的升级打怪之路</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.16-fda3fa66</generator><language>zh-cn</language><lastBuildDate>Wed, 04 Dec 2024 21:19:31 +0800</lastBuildDate><atom:link href="https://cronusqiu90.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Frida Hook Java层代码</title><link>https://cronusqiu90.github.io/posts/android/frida/hook_java/</link><pubDate>Wed, 04 Dec 2024 21:19:31 +0800</pubDate><guid>https://cronusqiu90.github.io/posts/android/frida/hook_java/</guid><category domain="https://cronusqiu90.github.io/categories/frida/">Frida</category><description>&lt;h3 id="设备" class="heading-element">&lt;span>设备&lt;/span>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>迷途小狼崽</title><link>https://cronusqiu90.github.io/</link><description>迷途小狼崽的升级打怪之路</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.16-fda3fa66</generator><language>zh-cn</language><lastBuildDate>Fri, 06 Dec 2024 13:58:28 +0800</lastBuildDate><atom:link href="https://cronusqiu90.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>看雪文章记录</title><link>https://cronusqiu90.github.io/posts/android/kanxue/articles/</link><pubDate>Fri, 06 Dec 2024 13:58:28 +0800</pubDate><guid>https://cronusqiu90.github.io/posts/android/kanxue/articles/</guid><category domain="https://cronusqiu90.github.io/categories/android/">Android</category><description>&lt;p>文章&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-268219.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]菜鸟学飞之frida整合怪&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-267940.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]android抓包学习的整理和归纳&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-273759.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]聊聊大厂设备指纹获取和对抗&amp;amp;设备指纹看着一篇就够了&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-259556.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]安卓逆向入门学习的一些总结、自我审视及规划&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-259633.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]新手关于ida动态调试so的一些坑总结&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-263401.htm"target="_blank" rel="external nofollow noopener noreferrer">fart的理解和分析过程&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>大佬&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-819934.htm"target="_blank" rel="external nofollow noopener noreferrer">珍惜Any&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-905443.htm"target="_blank" rel="external nofollow noopener noreferrer">随风而行aa&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-632473.htm"target="_blank" rel="external nofollow noopener noreferrer">hanbingle&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-581423.htm"target="_blank" rel="external nofollow noopener noreferrer">roysue&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item><item><title>Frida Hook Java层代码</title><link>https://cronusqiu90.github.io/posts/android/frida/hook_java/</link><pubDate>Wed, 04 Dec 2024 21:19:31 +0800</pubDate><guid>https://cronusqiu90.github.io/posts/android/frida/hook_java/</guid><category domain="https://cronusqiu90.github.io/categories/frida/">Frida</category><description>&lt;h3 id="设备" class="heading-element">&lt;span>设备&lt;/span>
  &lt;a href="#%e8%ae%be%e5%a4%87" class="heading-mark">
  &lt;svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true">&lt;path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z">&lt;/path>&lt;/svg>
  &lt;/a>

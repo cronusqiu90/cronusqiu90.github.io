@@ -132,5 +132,5 @@ send_tcp(buffer) 加HTTP头
 ---
 
 > 作者: 迷途小狼崽  
-> URL: https://cronusqiu90.github.io/posts/netword/%E5%8D%8F%E8%AE%AE/  
+> URL: http://localhost:1313/posts/netword/%E5%8D%8F%E8%AE%AE/  
 

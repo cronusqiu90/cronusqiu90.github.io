@@ -1,467 +1,769 @@
-<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Frida Hook Java层代码 - 迷途小狼崽</title><meta name=author content="迷途小狼崽">
-<meta name=description content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio & Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件
-"><meta name=keywords content='Android,Frida,Hook'><meta itemprop=name content="Frida Hook Java层代码"><meta itemprop=description content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio & Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件"><meta itemprop=datePublished content="2024-12-04T21:19:31+08:00"><meta itemprop=dateModified content="2024-12-04T21:19:31+08:00"><meta itemprop=wordCount content="828"><meta itemprop=keywords content="Android,Frida,Hook"><meta property="og:url" content="https://cronusqiu90.github.io/posts/android/frida/hook_java/"><meta property="og:site_name" content="迷途小狼崽"><meta property="og:title" content="Frida Hook Java层代码"><meta property="og:description" content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio & Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件"><meta property="og:locale" content="zh_cn"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-12-04T21:19:31+08:00"><meta property="article:modified_time" content="2024-12-04T21:19:31+08:00"><meta property="article:tag" content="Android"><meta property="article:tag" content="Frida"><meta property="article:tag" content="Hook"><meta name=twitter:card content="summary"><meta name=twitter:title content="Frida Hook Java层代码"><meta name=twitter:description content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio & Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件"><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://cronusqiu90.github.io/posts/android/frida/hook_java/ title="Frida Hook Java层代码 - 迷途小狼崽"><link rel=next type=text/html href=https://cronusqiu90.github.io/posts/android/kanxue/articles/ title=看雪文章记录><link rel=alternate type=text/markdown href=https://cronusqiu90.github.io/posts/android/frida/hook_java/index.md title="Frida Hook Java层代码 - 迷途小狼崽"><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Frida Hook Java层代码","inLanguage":"zh-cn","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cronusqiu90.github.io\/posts\/android\/frida\/hook_java\/"},"genre":"posts","keywords":"Android, Frida, Hook","wordcount":828,"url":"https:\/\/cronusqiu90.github.io\/posts\/android\/frida\/hook_java\/","datePublished":"2024-12-04T21:19:31+08:00","dateModified":"2024-12-04T21:19:31+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"迷途小狼崽"},"description":""}</script><script src=/js/head/color-scheme.min.js></script></head><body data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title=迷途小狼崽><span class=header-title-text>迷途小狼崽</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> Archives</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> Categories</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> Tags</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title=迷途小狼崽><span class=header-title-text>迷途小狼崽</span></a><span class=header-subtitle></span></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=menu-item><a class=menu-link href=/archives/><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden=true></i> Archives</a></li><li class=menu-item><a class=menu-link href=/categories/><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden=true></i> Categories</a></li><li class=menu-item><a class=menu-link href=/tags/><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden=true></i> Tags</a></li><li class="menu-item menu-system"><span class="menu-system-item theme-switch" title=切换主题><i class="fa-solid fa-adjust fa-fw" aria-hidden=true></i></span></li></ul></nav></div></header><main class="container container-reverse"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Frida Hook Java层代码</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><img loading=lazy src=/images/avatar2.jpg alt=迷途小狼崽 data-title=迷途小狼崽 width=20 height=20 class=avatar style="background:url(/images/loading.min.svg)no-repeat 50%" onload='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e);this.dataset.lazyloaded=""' onerror='this.title=this.dataset.title;for(const e of["style","data-title","onerror","onload"])this.removeAttribute(e)'>&nbsp;迷途小狼崽</span></span><span class=post-included-in>&nbsp;收录于 <a href=/categories/frida/ class=post-category title="分类 - Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden=true></i> Frida</a></span></div><div class=post-meta-line><span title="发布于 2024-12-04 21:19:31"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden=true></i><time datetime=2024-12-04>2024-12-04</time></span>&nbsp;<span title="828 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden=true></i>约 900 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden=true></i>预计阅读 4 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
-<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#设备>设备</a></li><li><a href=#环境配置>环境配置</a></li><li><a href=#frida-基础>Frida 基础</a><ul><li><a href=#调用成员函数>调用成员函数</a></li><li><a href=#调用静态函数>调用静态函数</a></li></ul></li><li><a href=#rpc及其自动化>RPC及其自动化</a><ul><li><a href=#简单调用>简单调用</a></li><li><a href=#互联互通>互联互通</a></li></ul></li><li><a href=#参数类型转换>参数类型、转换</a></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=设备 class=heading-element><span>设备</span>
-<a href=#%e8%ae%be%e5%a4%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ul><li>PC<ul><li>推荐使用 <code>Linux</code> 系统, <code>Windows</code> 系统也可以</li><li><code>Android Studio</code> & <code>Android SDK</code></li><li><code>Android Soursce Code</code></li><li>运维工具 <code>htop</code>, <code>jnettop</code> (Linux)</li></ul></li><li>手机<ul><li>解 <code>Bootloader</code> 锁</li><li><code>TWRP</code> 刷入 Recovery 分区</li><li>安装 <code>Magisk</code>, 修改并刷入 <code>boot.img</code></li><li>(Optional) 刷 <code>kali-nethunter</code> 系统</li></ul></li></ul><h3 id=环境配置 class=heading-element><span>环境配置</span>
-<a href=#%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ol><li><p>使用 <code>Visual Studio Code</code> 和对应的插件</p></li><li><p>安装 adb 工具</p></li><li><p>安装 python 和 nodejs</p></li><li><p>frida 模块</p></li></ol><p>客户端（工具）: <code>frida-tools</code> 和 <code>objection</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>pip install frida-tools
-</span></span><span class=line><span class=cl>pip install objection</span></span></code></pre></td></tr></table></div></div><p>服务端: <code>frida-server</code>
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Frida Hook Java层代码 - 迷途小狼崽</title><meta name="author" content="迷途小狼崽">
+<meta name="description" content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio &amp; Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件
+"><meta name="keywords" content='Android, Frida, Hook'>
+  <meta itemprop="name" content="Frida Hook Java层代码">
+  <meta itemprop="description" content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio &amp; Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件">
+  <meta itemprop="datePublished" content="2024-12-04T21:19:31+08:00">
+  <meta itemprop="dateModified" content="2024-12-04T21:19:31+08:00">
+  <meta itemprop="wordCount" content="828">
+  <meta itemprop="keywords" content="Android,Frida,Hook"><meta property="og:url" content="http://localhost:1313/posts/android/frida/hook_java/">
+  <meta property="og:site_name" content="迷途小狼崽">
+  <meta property="og:title" content="Frida Hook Java层代码">
+  <meta property="og:description" content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio &amp; Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-04T21:19:31+08:00">
+    <meta property="article:modified_time" content="2024-12-04T21:19:31+08:00">
+    <meta property="article:tag" content="Android">
+    <meta property="article:tag" content="Frida">
+    <meta property="article:tag" content="Hook">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Frida Hook Java层代码">
+  <meta name="twitter:description" content="设备PC 推荐使用 Linux 系统, Windows 系统也可以 Android Studio &amp; Android SDK Android Soursce Code 运维工具 htop, jnettop (Linux) 手机 解 Bootloader 锁 TWRP 刷入 Recovery 分区 安装 Magisk, 修改并刷入 boot.img (Optional) 刷 kali-nethunter 系统 环境配置使用 Visual Studio Code 和对应的插件">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/android/frida/hook_java/" title="Frida Hook Java层代码 - 迷途小狼崽" /><link rel="next" type="text/html" href="http://localhost:1313/posts/python/cpython_internals_5/" title="CPython源码阅读之五: 配置与输入" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/android/frida/hook_java/index.md" title="Frida Hook Java层代码 - 迷途小狼崽"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Frida Hook Java层代码",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/android\/frida\/hook_java\/"
+    },"genre": "posts","keywords": "Android, Frida, Hook","wordcount":  828 ,
+    "url": "http:\/\/localhost:1313\/posts\/android\/frida\/hook_java\/","datePublished": "2024-12-04T21:19:31+08:00","dateModified": "2024-12-04T21:19:31+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "迷途小狼崽"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="迷途小狼崽"><span class="header-title-text">迷途小狼崽</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="迷途小狼崽"><span class="header-title-text">迷途小狼崽</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="container container-reverse"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Frida Hook Java层代码</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/avatar2.jpg" alt="迷途小狼崽" data-title="迷途小狼崽" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;迷途小狼崽</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/frida/" class="post-category" title="分类 - Frida"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Frida</a></span></div><div class="post-meta-line"><span title="发布于 2024-12-04 21:19:31"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-12-04">2024-12-04</time></span>&nbsp;<span title="828 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 900 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#设备">设备</a></li>
+        <li><a href="#环境配置">环境配置</a></li>
+        <li><a href="#frida-基础">Frida 基础</a>
+          <ul>
+            <li><a href="#调用成员函数">调用成员函数</a></li>
+            <li><a href="#调用静态函数">调用静态函数</a></li>
+          </ul>
+        </li>
+        <li><a href="#rpc及其自动化">RPC及其自动化</a>
+          <ul>
+            <li><a href="#简单调用">简单调用</a></li>
+            <li><a href="#互联互通">互联互通</a></li>
+          </ul>
+        </li>
+        <li><a href="#参数类型转换">参数类型、转换</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h3 id="设备" class="heading-element"><span>设备</span>
+  <a href="#%e8%ae%be%e5%a4%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li>PC
+<ul>
+<li>推荐使用 <code>Linux</code> 系统, <code>Windows</code> 系统也可以</li>
+<li><code>Android Studio</code> &amp; <code>Android SDK</code></li>
+<li><code>Android Soursce Code</code></li>
+<li>运维工具 <code>htop</code>, <code>jnettop</code> (Linux)</li>
+</ul>
+</li>
+<li>手机
+<ul>
+<li>解 <code>Bootloader</code> 锁</li>
+<li><code>TWRP</code> 刷入 Recovery 分区</li>
+<li>安装 <code>Magisk</code>, 修改并刷入 <code>boot.img</code></li>
+<li>(Optional) 刷 <code>kali-nethunter</code> 系统</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境配置" class="heading-element"><span>环境配置</span>
+  <a href="#%e7%8e%af%e5%a2%83%e9%85%8d%e7%bd%ae" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
+<li>
+<p>使用 <code>Visual Studio Code</code> 和对应的插件</p>
+</li>
+<li>
+<p>安装 adb 工具</p>
+</li>
+<li>
+<p>安装 python 和 nodejs</p>
+</li>
+<li>
+<p>frida 模块</p>
+</li>
+</ol>
+<p>客户端（工具）: <code>frida-tools</code> 和 <code>objection</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">pip install frida-tools
+</span></span><span class="line"><span class="cl">pip install objection</span></span></code></pre></td></tr></table>
+</div>
+</div><p>服务端: <code>frida-server</code>
 下载地址: <code>https://github.com/frida/frida/releases</code>
-需要注意的是：</p><ol><li>frida-server的版本要与 <code>frida</code> 版本一致；</li><li>frida-server的架构需要和测试机的系统以及架构一致；</li></ol><p>推送手机:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>user@localhost ~<span class=o>]</span><span class=c1># adb push frida-server /data/local/tmp</span>
-</span></span><span class=line><span class=cl><span class=o>[</span>user@localhost ~<span class=o>]</span><span class=c1># adb shell</span>
-</span></span><span class=line><span class=cl><span class=o>[</span>shell@xm8 ~<span class=o>]</span><span class=c1># su</span>
-</span></span><span class=line><span class=cl><span class=o>[</span>root@xm8 ~<span class=o>]</span><span class=c1># cd /data/local/tmp</span>
-</span></span><span class=line><span class=cl><span class=o>[</span>root@xm8 ~<span class=o>]</span><span class=c1># chmod 777 frida-server</span>
-</span></span><span class=line><span class=cl><span class=c1># 启动 frida-server, 使用默认端口</span>
-</span></span><span class=line><span class=cl><span class=o>[</span>root@xm8 ~<span class=o>]</span><span class=c1># ./frida-server </span></span></span></code></pre></td></tr></table></div></div><p>检查是否成功:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
-</span><span class=lnt>2
-</span><span class=lnt>3
-</span><span class=lnt>4
-</span><span class=lnt>5
-</span><span class=lnt>6
-</span><span class=lnt>7
-</span><span class=lnt>8
-</span><span class=lnt>9
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=o>[</span>user@localhost ~<span class=o>]</span><span class=c1># adb devices</span>
-</span></span><span class=line><span class=cl>List of devices attached
-</span></span><span class=line><span class=cl>0123456789ABCDEF        device
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=o>[</span>user@localhost ~<span class=o>]</span><span class=c1># frida-ps -Uai</span>
-</span></span><span class=line><span class=cl> PID  Name
-</span></span><span class=line><span class=cl>-----  -----------
-</span></span><span class=line><span class=cl> <span class=m>1234</span> frida-server
-</span></span><span class=line><span class=cl> ...  </span></span></code></pre></td></tr></table></div></div><h3 id=frida-基础 class=heading-element><span>Frida 基础</span>
-<a href=#frida-%e5%9f%ba%e7%a1%80 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><code>frida</code> 有两种操作模式:</p><ol><li><code>CLI</code> 命令行模式：通过 shell 命令直接将 js 脚本注入进程</li><li><code>RPC</code> 使用 Python 脚本控制将 js 脚本注入进程</li></ol><p>首先编写一个简单的 apk 应用（默认具备Android应用的开发基础）
-java 代码:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span><span class=lnt>29
-</span><span class=lnt>30
-</span><span class=lnt>31
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nn>org.example.demo01</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>androidx.appcompat.app.AppCompatActivity</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>android.os.Bundle</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>android.view.View</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>android.widget.Button</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>android.widget.TextView</span><span class=p>;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>MainActivity</span><span class=w> </span><span class=kd>extends</span><span class=w> </span><span class=n>AppCompatActivity</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nd>@Override</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>protected</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>onCreate</span><span class=p>(</span><span class=n>Bundle</span><span class=w> </span><span class=n>savedInstanceState</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=kd>super</span><span class=p>.</span><span class=na>onCreate</span><span class=p>(</span><span class=n>savedInstanceState</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>setContentView</span><span class=p>(</span><span class=n>R</span><span class=p>.</span><span class=na>layout</span><span class=p>.</span><span class=na>activity_main</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Button</span><span class=w> </span><span class=n>btn</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>findViewById</span><span class=p>(</span><span class=n>R</span><span class=p>.</span><span class=na>id</span><span class=p>.</span><span class=na>button</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>btn</span><span class=p>.</span><span class=na>setOnClickListener</span><span class=p>(</span><span class=k>new</span><span class=w> </span><span class=n>View</span><span class=p>.</span><span class=na>OnClickListener</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nd>@Override</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=kd>public</span><span class=w> </span><span class=kt>void</span><span class=w> </span><span class=nf>onClick</span><span class=p>(</span><span class=n>View</span><span class=w> </span><span class=n>v</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=n>TextView</span><span class=w> </span><span class=n>tv</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>findViewById</span><span class=p>(</span><span class=n>R</span><span class=p>.</span><span class=na>id</span><span class=p>.</span><span class=na>tv</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>                </span><span class=n>tv</span><span class=p>.</span><span class=na>setText</span><span class=p>(</span><span class=n>Talk</span><span class=p>(</span><span class=n>1</span><span class=p>,</span><span class=w> </span><span class=n>2</span><span class=p>));</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>});</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>String</span><span class=w> </span><span class=nf>Talk</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>n1</span><span class=p>,</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>n2</span><span class=p>){</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=s>&#34;Talk:&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>String</span><span class=p>.</span><span class=na>valueOf</span><span class=p>(</span><span class=n>n1</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>n2</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>   
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span></span></span></code></pre></td></tr></table></div></div><h4 id=调用成员函数 class=heading-element><span>调用成员函数</span>
-<a href=#%e8%b0%83%e7%94%a8%e6%88%90%e5%91%98%e5%87%bd%e6%95%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><p>编写一个 js 脚本 hook 按钮点击事件，并打印出参数和返回值:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;start hooking &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=nx>Java</span><span class=p>.</span><span class=nx>perform</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Inside java perform function&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=c1>//定位类
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>MainActivity</span> <span class=o>=</span> <span class=nx>Java</span><span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=s2>&#34;org.example.demo01.MainActivity&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Java.Use.Successfully!&#34;</span><span class=p>);</span> <span class=c1>//定位类成功！
-</span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 使用 `implementation` 关键词实现实例化对应
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>MainActivity</span><span class=p>.</span><span class=nx>Talk</span><span class=p>.</span><span class=nx>implementation</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;MainActivity.Talk:&#34;</span><span class=p>,</span> <span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>);</span>            
-</span></span><span class=line><span class=cl>            <span class=c1>// 调用原有的方法
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=c1>// return this.Talk(x, y);            
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=c1>// 替换参数
-</span></span></span><span class=line><span class=cl><span class=c1></span>            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>Talk</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span> <span class=mi>20</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>    <span class=p>});</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>setImmediate</span><span class=p>(</span><span class=nx>main</span><span class=p>);</span></span></span></code></pre></td></tr></table></div></div><p>对 <code>Talk</code> 方法增加一个 <code>overload</code> 方法:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// ...</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>String</span><span class=w> </span><span class=nf>Talk</span><span class=p>(</span><span class=kt>int</span><span class=w> </span><span class=n>n1</span><span class=p>,</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=n>n2</span><span class=p>){</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=s>&#34;Talk:&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>String</span><span class=p>.</span><span class=na>valueOf</span><span class=p>(</span><span class=n>n1</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>n2</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=n>String</span><span class=w> </span><span class=nf>Talk</span><span class=p>(</span><span class=n>String</span><span class=w> </span><span class=n>str</span><span class=p>){</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=s>&#34;Talk:&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>str</span><span class=p>.</span><span class=na>toUpperCase</span><span class=p>();</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=o>//</span><span class=w> </span><span class=p>...</span></span></span></code></pre></td></tr></table></div></div><p><code>JS</code> 脚本:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;start hooking &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=nx>Java</span><span class=p>.</span><span class=nx>perform</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Inside java perform function&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=c1>//定位类
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>MainActivity</span> <span class=o>=</span> <span class=nx>Java</span><span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=s2>&#34;org.example.demo01.MainActivity&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Java.Use.Successfully!&#34;</span><span class=p>);</span> <span class=c1>//定位类成功！
-</span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 使用 `overload` 关键词来指定函数入参
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>// 使用 `implementation` 关键词实现实例化对应
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>MainActivity</span><span class=p>.</span><span class=nx>Talk</span><span class=p>.</span><span class=nx>overload</span><span class=p>(</span><span class=s1>&#39;int&#39;</span><span class=p>,</span> <span class=s1>&#39;int&#39;</span><span class=p>).</span><span class=nx>implementation</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;MainActivity.Talk:&#34;</span><span class=p>,</span> <span class=nx>x</span><span class=p>,</span> <span class=nx>y</span><span class=p>);</span>            
-</span></span><span class=line><span class=cl>            <span class=k>return</span> <span class=k>this</span><span class=p>.</span><span class=nx>Talk</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span> <span class=mi>20</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// MainActivity.Talk.overload(&#39;java.lang.String&#39;).implementation = function (str) {
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>//     console.log(&#34;MainActivity.Talk:&#34;, str);            
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>//     return this.Talk(str);
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>// }
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>});</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>setImmediate</span><span class=p>(</span><span class=nx>main</span><span class=p>);</span></span></span></code></pre></td></tr></table></div></div><h4 id=调用静态函数 class=heading-element><span>调用静态函数</span>
-<a href=#%e8%b0%83%e7%94%a8%e9%9d%99%e6%80%81%e5%87%bd%e6%95%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><p><code>MainActivity</code> 中新增方法:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-java data-lang=java><span class=line><span class=cl><span class=c1>// ...</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kt>void</span><span class=w> </span><span class=nf>hello</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Log</span><span class=p>.</span><span class=na>d</span><span class=p>(</span><span class=s>&#34;com.example.demo01&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;hello invoked&#34;</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>public</span><span class=w> </span><span class=kd>static</span><span class=w> </span><span class=n>String</span><span class=w> </span><span class=nf>staticHello</span><span class=p>(){</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=n>Log</span><span class=p>.</span><span class=na>d</span><span class=p>(</span><span class=s>&#34;com.example.demo01&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;staticHello invoked&#34;</span><span class=p>);</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=o>//</span><span class=w> </span><span class=p>...</span></span></span></code></pre></td></tr></table></div></div><p><code>JS</code> 脚本:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span><span class=lnt>26
-</span><span class=lnt>27
-</span><span class=lnt>28
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>function</span> <span class=nx>main</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;start hooking &#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=nx>Java</span><span class=p>.</span><span class=nx>perform</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Inside java perform function&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=c1>//定位类
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>MainActivity</span> <span class=o>=</span> <span class=nx>Java</span><span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=s2>&#34;org.example.demo01.MainActivity&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Java.Use.Successfully!&#34;</span><span class=p>);</span> <span class=c1>//定位类成功！
-</span></span></span><span class=line><span class=cl><span class=c1></span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 静态函数调用
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>MainActivity</span><span class=p>.</span><span class=nx>staticHello</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// 实例函数调用
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>// `Java.choose` 是在内存中查找对应的类，前提是要保证类已经加载到内存中；
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=c1>// 运行脚本前，需要先运行应用；
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=nx>Java</span><span class=p>.</span><span class=nx>choose</span><span class=p>(</span><span class=s2>&#34;org.example.demo01.MainActivity&#34;</span><span class=p>,</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=nx>onMatch</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>instance</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;instance:&#34;</span><span class=p>,</span> <span class=nx>instance</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>                <span class=nx>instance</span><span class=p>.</span><span class=nx>hello</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>            <span class=p>},</span>
-</span></span><span class=line><span class=cl>            <span class=nx>onComplete</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>                <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;onComplete&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>            <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=p>});</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>setImmediate</span><span class=p>(</span><span class=nx>main</span><span class=p>);</span></span></span></code></pre></td></tr></table></div></div><h3 id=rpc及其自动化 class=heading-element><span>RPC及其自动化</span>
-<a href=#rpc%e5%8f%8a%e5%85%b6%e8%87%aa%e5%8a%a8%e5%8c%96 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>在 <code>CLI</code> 模式下完成了对应用的分析，通过编写 <code>Python</code> 脚本实现自动化运行注入。</p><h4 id=简单调用 class=heading-element><span>简单调用</span>
-<a href=#%e7%ae%80%e5%8d%95%e8%b0%83%e7%94%a8 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>// hook.js
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kd>function</span> <span class=nx>CallHello</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>Java</span><span class=p>.</span><span class=nx>perform</span><span class=p>(</span><span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=nx>Java</span><span class=p>.</span><span class=nx>choose</span><span class=p>(</span><span class=s2>&#34;org.example.demo01.MainActivity&#34;</span><span class=p>,</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=nx>onMatch</span><span class=o>:</span> <span class=kd>function</span><span class=p>(</span><span class=nx>instance</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>                <span class=nx>instance</span><span class=p>.</span><span class=nx>hello</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>            <span class=p>},</span>
-</span></span><span class=line><span class=cl>            <span class=nx>onComplete</span><span class=o>:</span> <span class=kd>function</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=p>}</span>
-</span></span><span class=line><span class=cl>        <span class=p>});</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nx>rpc</span><span class=p>.</span><span class=nx>exports</span> <span class=o>=</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// 导出名（key）不可以有大写字母或者下划线!!!
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>callhello</span><span class=o>:</span> <span class=nx>CallHello</span><span class=p>,</span>
-</span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span><span class=lnt>25
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># loader.py</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>frida</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>time</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>on_message</span><span class=p>(</span><span class=n>message</span><span class=p>,</span> <span class=n>data</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>message</span><span class=p>[</span><span class=s1>&#39;type&#39;</span><span class=p>]</span> <span class=o>==</span> <span class=s1>&#39;send&#39;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;[*] </span><span class=si>{0}</span><span class=s2>&#34;</span><span class=o>.</span><span class=n>format</span><span class=p>(</span><span class=n>message</span><span class=p>[</span><span class=s1>&#39;payload&#39;</span><span class=p>]))</span>
-</span></span><span class=line><span class=cl>    <span class=k>else</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=nb>print</span><span class=p>(</span><span class=n>message</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>device</span> <span class=o>=</span> <span class=n>frida</span><span class=o>.</span><span class=n>get_usb_device</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=n>process</span> <span class=o>=</span> <span class=n>device</span><span class=o>.</span><span class=n>attach</span><span class=p>(</span><span class=s2>&#34;com.example.demo01&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=s2>&#34;hook.js&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    <span class=n>jsCode</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=n>script</span> <span class=o>=</span> <span class=n>process</span><span class=o>.</span><span class=n>create_script</span><span class=p>(</span><span class=n>jsCode</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>script</span><span class=o>.</span><span class=n>on</span><span class=p>(</span><span class=s1>&#39;message&#39;</span><span class=p>,</span> <span class=n>on_message</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>script</span><span class=o>.</span><span class=n>load</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>while</span> <span class=kc>True</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    <span class=n>script</span><span class=o>.</span><span class=n>exports</span><span class=o>.</span><span class=n>callhello</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>    <span class=n>time</span><span class=o>.</span><span class=n>sleep</span><span class=p>(</span><span class=mi>1</span><span class=p>)</span></span></span></code></pre></td></tr></table></div></div><h4 id=互联互通 class=heading-element><span>互联互通</span>
-<a href=#%e4%ba%92%e8%81%94%e4%ba%92%e9%80%9a class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span><span class=lnt>21
-</span><span class=lnt>22
-</span><span class=lnt>23
-</span><span class=lnt>24
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-javascript data-lang=javascript><span class=line><span class=cl><span class=c1>//hook.js
-</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>Java</span><span class=p>.</span><span class=nx>perform</span><span class=p>(</span><span class=kd>function</span> <span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>    <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;Inside java perform function&#34;</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>    <span class=c1>// 通过 hook TextView 控件
-</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>Java</span><span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=s2>&#34;android.widget.TextView&#34;</span><span class=p>).</span><span class=nx>setText</span><span class=p>.</span><span class=nx>overload</span><span class=p>(</span><span class=s1>&#39;java.lang.CharSequence&#39;</span><span class=p>).</span><span class=nx>implementation</span> <span class=o>=</span> <span class=kd>function</span> <span class=p>(</span><span class=nx>x</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>        <span class=c1>// 将参数发送给 Python 脚本
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>strSend</span> <span class=o>=</span> <span class=nx>x</span><span class=p>.</span><span class=nx>toString</span><span class=p>();</span>
-</span></span><span class=line><span class=cl>        <span class=nx>send</span><span class=p>(</span><span class=nx>strSend</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// 接收 Python 脚本返回的结果
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>strRecv</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>        <span class=nx>recv</span><span class=p>(</span><span class=kd>function</span> <span class=p>(</span><span class=nx>received_json_objection</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>            <span class=nx>strRecv</span> <span class=o>=</span> <span class=nx>received_json_objection</span><span class=p>.</span><span class=nx>mData</span><span class=p>;</span>
-</span></span><span class=line><span class=cl>            <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;strRecv &#34;</span><span class=p>,</span> <span class=nx>strRecv</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=p>}).</span><span class=nx>wait</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=c1>// 更新UI
-</span></span></span><span class=line><span class=cl><span class=c1></span>        <span class=kd>var</span> <span class=nx>javaStr</span> <span class=o>=</span> <span class=nx>Java</span><span class=p>.</span><span class=nx>use</span><span class=p>(</span><span class=s1>&#39;java.lang.String&#39;</span><span class=p>).</span><span class=nx>$new</span><span class=p>(</span><span class=nx>strRecv</span><span class=p>);</span>
-</span></span><span class=line><span class=cl>        <span class=kd>var</span> <span class=nx>result</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>setText</span><span class=p>(</span><span class=nx>javaStr</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>        <span class=nx>console</span><span class=p>.</span><span class=nx>log</span><span class=p>(</span><span class=s2>&#34;javaStr result&#34;</span><span class=p>,</span> <span class=nx>javaStr</span><span class=p>,</span> <span class=nx>result</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>        <span class=k>return</span> <span class=nx>result</span>
-</span></span><span class=line><span class=cl>    <span class=p>}</span>
-</span></span><span class=line><span class=cl><span class=p>})</span></span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
-</span><span class=lnt> 2
-</span><span class=lnt> 3
-</span><span class=lnt> 4
-</span><span class=lnt> 5
-</span><span class=lnt> 6
-</span><span class=lnt> 7
-</span><span class=lnt> 8
-</span><span class=lnt> 9
-</span><span class=lnt>10
-</span><span class=lnt>11
-</span><span class=lnt>12
-</span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
-</span><span class=lnt>18
-</span><span class=lnt>19
-</span><span class=lnt>20
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=c1># loader.py</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>frida</span>
-</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nn>sys</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=k>def</span> <span class=nf>on_message</span><span class=p>(</span><span class=n>message</span><span class=p>,</span> <span class=n>payload</span><span class=p>):</span>
-</span></span><span class=line><span class=cl>    <span class=nb>print</span><span class=p>(</span><span class=s2>&#34;message:&#34;</span><span class=p>,</span> <span class=n>message</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>    <span class=k>if</span> <span class=n>message</span><span class=p>[</span><span class=s1>&#39;type&#39;</span><span class=p>]</span> <span class=o>==</span> <span class=s1>&#39;send&#39;</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>        <span class=n>script</span><span class=o>.</span><span class=n>post</span><span class=p>({</span><span class=s2>&#34;mData&#34;</span><span class=p>:</span> <span class=s2>&#34;hello, from python script!&#34;</span><span class=p>})</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=n>device</span> <span class=o>=</span> <span class=n>frida</span><span class=o>.</span><span class=n>get_usb_device</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=n>process</span> <span class=o>=</span> <span class=n>device</span><span class=o>.</span><span class=n>attach</span><span class=p>(</span><span class=s2>&#34;com.example.demo01&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=k>with</span> <span class=nb>open</span><span class=p>(</span><span class=s2>&#34;hook.js&#34;</span><span class=p>)</span> <span class=k>as</span> <span class=n>f</span><span class=p>:</span>
-</span></span><span class=line><span class=cl>    <span class=n>jsCode</span> <span class=o>=</span> <span class=n>f</span><span class=o>.</span><span class=n>read</span><span class=p>()</span>
-</span></span><span class=line><span class=cl><span class=n>script</span> <span class=o>=</span> <span class=n>process</span><span class=o>.</span><span class=n>create_script</span><span class=p>(</span><span class=n>jsCode</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>script</span><span class=o>.</span><span class=n>on</span><span class=p>(</span><span class=s1>&#39;message&#39;</span><span class=p>,</span> <span class=n>on_message</span><span class=p>)</span>
-</span></span><span class=line><span class=cl><span class=n>script</span><span class=o>.</span><span class=n>load</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=nb>input</span><span class=p>()</span></span></span></code></pre></td></tr></table></div></div><h3 id=参数类型转换 class=heading-element><span>参数类型、转换</span>
-<a href=#%e5%8f%82%e6%95%b0%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2024-12-04 21:19:31">更新于 2024-12-04&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/posts/android/frida/hook_java/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags fa-fw me-1" aria-hidden=true></i><a href=/tags/android/ class=post-tag title="标签 - Android">Android</a><a href=/tags/frida/ class=post-tag title="标签 - Frida">Frida</a><a href=/tags/hook/ class=post-tag title="标签 - Hook">Hook</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/posts/android/kanxue/articles/ class=post-nav-item rel=next title=看雪文章记录>看雪文章记录<i class="fa-solid fa-angle-right fa-fw" aria-hidden=true></i></a></div></div></article><aside class=toc id=toc-auto aria-label=目录><h2 class=toc-title>目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden=true></i></h2><div class=toc-content id=toc-content-auto></div></aside></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.139.2"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.3.16-fda3fa66"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright fa-fw" aria-hidden=true></i>
-<span itemprop=copyrightYear>2016 - 2024</span><span class=author itemprop=copyrightHolder>
-<a href=/>迷途小狼崽</a></span></div></div></footer></div><div class=widgets><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up fa-fw" aria-hidden=true></i><span class=variant-numeric>0%</span></div></div><div id=mask></div><div class=reading-progress-bar style=left:0;top:0></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><link rel=stylesheet href=/lib/pace/themes/blue/pace-theme-minimal.css><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/pace/pace.min.js async defer></script><script>window.config={code:{copyTitle:"复制到剪贴板",editLockTitle:"锁定可编辑代码块",editUnLockTitle:"解锁可编辑代码块",editable:!0,maxShownLines:10},comment:{enable:!1},cookieconsent:{content:{dismiss:"同意",link:"了解更多",message:"本网站使用 Cookies 来改善您的浏览体验。"},enable:!0,palette:{button:{background:"#f0f0f0"},popup:{background:"#1aa3ff"}},theme:"edgeless"},version:"v0.3.16-fda3fa66"}</script><script src=/js/theme.min.js defer></script></body></html>
+需要注意的是：</p>
+<ol>
+<li>frida-server的版本要与 <code>frida</code> 版本一致；</li>
+<li>frida-server的架构需要和测试机的系统以及架构一致；</li>
+</ol>
+<p>推送手机:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>user@localhost ~<span class="o">]</span><span class="c1"># adb push frida-server /data/local/tmp</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>user@localhost ~<span class="o">]</span><span class="c1"># adb shell</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>shell@xm8 ~<span class="o">]</span><span class="c1"># su</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@xm8 ~<span class="o">]</span><span class="c1"># cd /data/local/tmp</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@xm8 ~<span class="o">]</span><span class="c1"># chmod 777 frida-server</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 启动 frida-server, 使用默认端口</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@xm8 ~<span class="o">]</span><span class="c1"># ./frida-server </span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>检查是否成功:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="o">[</span>user@localhost ~<span class="o">]</span><span class="c1"># adb devices</span>
+</span></span><span class="line"><span class="cl">List of devices attached
+</span></span><span class="line"><span class="cl">0123456789ABCDEF        device
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>user@localhost ~<span class="o">]</span><span class="c1"># frida-ps -Uai</span>
+</span></span><span class="line"><span class="cl"> PID  Name
+</span></span><span class="line"><span class="cl">-----  -----------
+</span></span><span class="line"><span class="cl"> <span class="m">1234</span> frida-server
+</span></span><span class="line"><span class="cl"> ...  </span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="frida-基础" class="heading-element"><span>Frida 基础</span>
+  <a href="#frida-%e5%9f%ba%e7%a1%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>frida</code> 有两种操作模式:</p>
+<ol>
+<li><code>CLI</code> 命令行模式：通过 shell 命令直接将 js 脚本注入进程</li>
+<li><code>RPC</code> 使用 Python 脚本控制将 js 脚本注入进程</li>
+</ol>
+<p>首先编写一个简单的 apk 应用（默认具备Android应用的开发基础）
+java 代码:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">org.example.demo01</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">androidx.appcompat.app.AppCompatActivity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.os.Bundle</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.view.View</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.widget.Button</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.widget.TextView</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MainActivity</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">AppCompatActivity</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onCreate</span><span class="p">(</span><span class="n">Bundle</span><span class="w"> </span><span class="n">savedInstanceState</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">setContentView</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">layout</span><span class="p">.</span><span class="na">activity_main</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Button</span><span class="w"> </span><span class="n">btn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">button</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">btn</span><span class="p">.</span><span class="na">setOnClickListener</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">View</span><span class="p">.</span><span class="na">OnClickListener</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">onClick</span><span class="p">(</span><span class="n">View</span><span class="w"> </span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">TextView</span><span class="w"> </span><span class="n">tv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">findViewById</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">id</span><span class="p">.</span><span class="na">tv</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">tv</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">Talk</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">2</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">});</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">Talk</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n2</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;Talk:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="调用成员函数" class="heading-element"><span>调用成员函数</span>
+  <a href="#%e8%b0%83%e7%94%a8%e6%88%90%e5%91%98%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>编写一个 js 脚本 hook 按钮点击事件，并打印出参数和返回值:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;start hooking &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Inside java perform function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//定位类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">MainActivity</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;org.example.demo01.MainActivity&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Java.Use.Successfully!&#34;</span><span class="p">);</span> <span class="c1">//定位类成功！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 使用 `implementation` 关键词实现实例化对应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">MainActivity</span><span class="p">.</span><span class="nx">Talk</span><span class="p">.</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;MainActivity.Talk:&#34;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>            
+</span></span><span class="line"><span class="cl">            <span class="c1">// 调用原有的方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// return this.Talk(x, y);            
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// 替换参数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">Talk</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>对 <code>Talk</code> 方法增加一个 <code>overload</code> 方法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">Talk</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n2</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;Talk:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n2</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="nf">Talk</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">str</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s">&#34;Talk:&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">str</span><span class="p">.</span><span class="na">toUpperCase</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="p">...</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>JS</code> 脚本:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;start hooking &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Inside java perform function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//定位类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">MainActivity</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;org.example.demo01.MainActivity&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Java.Use.Successfully!&#34;</span><span class="p">);</span> <span class="c1">//定位类成功！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 使用 `overload` 关键词来指定函数入参
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 使用 `implementation` 关键词实现实例化对应
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">MainActivity</span><span class="p">.</span><span class="nx">Talk</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;MainActivity.Talk:&#34;</span><span class="p">,</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">);</span>            
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">Talk</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// MainActivity.Talk.overload(&#39;java.lang.String&#39;).implementation = function (str) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     console.log(&#34;MainActivity.Talk:&#34;, str);            
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return this.Talk(str);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="调用静态函数" class="heading-element"><span>调用静态函数</span>
+  <a href="#%e8%b0%83%e7%94%a8%e9%9d%99%e6%80%81%e5%87%bd%e6%95%b0" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p><code>MainActivity</code> 中新增方法:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="c1">// ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">hello</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&#34;com.example.demo01&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;hello invoked&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">staticHello</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Log</span><span class="p">.</span><span class="na">d</span><span class="p">(</span><span class="s">&#34;com.example.demo01&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;staticHello invoked&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">//</span><span class="w"> </span><span class="p">...</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>JS</code> 脚本:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;start hooking &#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Inside java perform function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//定位类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">MainActivity</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;org.example.demo01.MainActivity&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Java.Use.Successfully!&#34;</span><span class="p">);</span> <span class="c1">//定位类成功！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 静态函数调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">MainActivity</span><span class="p">.</span><span class="nx">staticHello</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 实例函数调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// `Java.choose` 是在内存中查找对应的类，前提是要保证类已经加载到内存中；
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// 运行脚本前，需要先运行应用；
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="s2">&#34;org.example.demo01.MainActivity&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;instance:&#34;</span><span class="p">,</span> <span class="nx">instance</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">instance</span><span class="p">.</span><span class="nx">hello</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;onComplete&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">setImmediate</span><span class="p">(</span><span class="nx">main</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="rpc及其自动化" class="heading-element"><span>RPC及其自动化</span>
+  <a href="#rpc%e5%8f%8a%e5%85%b6%e8%87%aa%e5%8a%a8%e5%8c%96" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>在 <code>CLI</code> 模式下完成了对应用的分析，通过编写 <code>Python</code> 脚本实现自动化运行注入。</p>
+<h4 id="简单调用" class="heading-element"><span>简单调用</span>
+  <a href="#%e7%ae%80%e5%8d%95%e8%b0%83%e7%94%a8" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// hook.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">CallHello</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Java</span><span class="p">.</span><span class="nx">choose</span><span class="p">(</span><span class="s2">&#34;org.example.demo01.MainActivity&#34;</span><span class="p">,</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onMatch</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">instance</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">instance</span><span class="p">.</span><span class="nx">hello</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">onComplete</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">});</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">rpc</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 导出名（key）不可以有大写字母或者下划线!!!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">callhello</span><span class="o">:</span> <span class="nx">CallHello</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># loader.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">frida</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">time</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;send&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;[*] </span><span class="si">{0}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">message</span><span class="p">[</span><span class="s1">&#39;payload&#39;</span><span class="p">]))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">device</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">process</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&#34;com.example.demo01&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;hook.js&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jsCode</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jsCode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">script</span><span class="o">.</span><span class="n">exports</span><span class="o">.</span><span class="n">callhello</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="互联互通" class="heading-element"><span>互联互通</span>
+  <a href="#%e4%ba%92%e8%81%94%e4%ba%92%e9%80%9a" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">//hook.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Java</span><span class="p">.</span><span class="nx">perform</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;Inside java perform function&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 通过 hook TextView 控件
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s2">&#34;android.widget.TextView&#34;</span><span class="p">).</span><span class="nx">setText</span><span class="p">.</span><span class="nx">overload</span><span class="p">(</span><span class="s1">&#39;java.lang.CharSequence&#39;</span><span class="p">).</span><span class="nx">implementation</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 将参数发送给 Python 脚本
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">strSend</span> <span class="o">=</span> <span class="nx">x</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">send</span><span class="p">(</span><span class="nx">strSend</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 接收 Python 脚本返回的结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">strRecv</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">recv</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">received_json_objection</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">strRecv</span> <span class="o">=</span> <span class="nx">received_json_objection</span><span class="p">.</span><span class="nx">mData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;strRecv &#34;</span><span class="p">,</span> <span class="nx">strRecv</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}).</span><span class="nx">wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// 更新UI
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">var</span> <span class="nx">javaStr</span> <span class="o">=</span> <span class="nx">Java</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;java.lang.String&#39;</span><span class="p">).</span><span class="nx">$new</span><span class="p">(</span><span class="nx">strRecv</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">setText</span><span class="p">(</span><span class="nx">javaStr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;javaStr result&#34;</span><span class="p">,</span> <span class="nx">javaStr</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">result</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># loader.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">frida</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">sys</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">on_message</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">payload</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;message:&#34;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">message</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;send&#39;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">script</span><span class="o">.</span><span class="n">post</span><span class="p">({</span><span class="s2">&#34;mData&#34;</span><span class="p">:</span> <span class="s2">&#34;hello, from python script!&#34;</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">device</span> <span class="o">=</span> <span class="n">frida</span><span class="o">.</span><span class="n">get_usb_device</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">process</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="s2">&#34;com.example.demo01&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;hook.js&#34;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jsCode</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">create_script</span><span class="p">(</span><span class="n">jsCode</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="n">on_message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">script</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">input</span><span class="p">()</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="参数类型转换" class="heading-element"><span>参数类型、转换</span>
+  <a href="#%e5%8f%82%e6%95%b0%e7%b1%bb%e5%9e%8b%e8%bd%ac%e6%8d%a2" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2024-12-04 21:19:31">更新于 2024-12-04&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/posts/android/frida/hook_java/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span></span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/android/" class="post-tag" title="标签 - Android">Android</a><a href="/tags/frida/" class="post-tag" title="标签 - Frida">Frida</a><a href="/tags/hook/" class="post-tag" title="标签 - Hook">Hook</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/python/cpython_internals_5/" class="post-nav-item" rel="next" title="CPython源码阅读之五: 配置与输入">CPython源码阅读之五: 配置与输入<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down fa-fw" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.139.2"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.3.16-fda3fa66"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2016 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">迷途小狼崽</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><link rel="stylesheet" href="/lib/pace/themes/blue/pace-theme-minimal.css"><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":10},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"version":"v0.3.16-fda3fa66"};console.log('Page config:', window.config);</script><script src="/js/theme.min.js" defer></script></body>
+</html>

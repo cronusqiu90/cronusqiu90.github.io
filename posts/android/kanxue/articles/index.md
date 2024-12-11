@@ -29,5 +29,5 @@
 ---
 
 > 作者: 迷途小狼崽  
-> URL: http://localhost:1313/posts/android/kanxue/articles/  
+> URL: https://cronusqiu90.github.io/posts/android/kanxue/articles/  
 

@@ -1,20 +1,36 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Android - 分类 - 迷途小狼崽</title>
-    <link>http://localhost:1313/categories/android/</link>
-    <description>迷途小狼崽的升级打怪之路</description>
-    <generator>Hugo 0.139.2 &amp; FixIt v0.3.16-fda3fa66</generator>
-    <language>zh-cn</language>
-    <lastBuildDate>Fri, 06 Dec 2024 13:58:28 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/android/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>看雪文章记录</title>
-      <link>http://localhost:1313/posts/android/kanxue/articles/</link>
-      <pubDate>Fri, 06 Dec 2024 13:58:28 +0800</pubDate>
-      <guid>http://localhost:1313/posts/android/kanxue/articles/</guid>
-      <category domain="http://localhost:1313/categories/android/">Android</category>
-      <description>&lt;p&gt;文章&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-268219.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;[原创]菜鸟学飞之frida整合怪&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-267940.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;[原创]android抓包学习的整理和归纳&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-273759.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;[原创]聊聊大厂设备指纹获取和对抗&amp;amp;设备指纹看着一篇就够了&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-259556.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;[原创]安卓逆向入门学习的一些总结、自我审视及规划&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-259633.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;[原创]新手关于ida动态调试so的一些坑总结&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/thread-263401.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;fart的理解和分析过程&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;大佬&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/homepage-819934.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;珍惜Any&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/homepage-905443.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;随风而行aa&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/homepage-632473.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;hanbingle&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://bbs.kanxue.com/homepage-581423.htm&#34;target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;roysue&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Android - 分类 - 迷途小狼崽</title><link>https://cronusqiu90.github.io/categories/android/</link><description>迷途小狼崽的升级打怪之路</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.16-fda3fa66</generator><language>zh-cn</language><lastBuildDate>Fri, 06 Dec 2024 13:58:28 +0800</lastBuildDate><atom:link href="https://cronusqiu90.github.io/categories/android/index.xml" rel="self" type="application/rss+xml"/><item><title>看雪文章记录</title><link>https://cronusqiu90.github.io/posts/android/kanxue/articles/</link><pubDate>Fri, 06 Dec 2024 13:58:28 +0800</pubDate><guid>https://cronusqiu90.github.io/posts/android/kanxue/articles/</guid><category domain="https://cronusqiu90.github.io/categories/android/">Android</category><description>&lt;p>文章&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-268219.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]菜鸟学飞之frida整合怪&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-267940.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]android抓包学习的整理和归纳&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-273759.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]聊聊大厂设备指纹获取和对抗&amp;amp;设备指纹看着一篇就够了&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-259556.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]安卓逆向入门学习的一些总结、自我审视及规划&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-259633.htm"target="_blank" rel="external nofollow noopener noreferrer">[原创]新手关于ida动态调试so的一些坑总结&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/thread-263401.htm"target="_blank" rel="external nofollow noopener noreferrer">fart的理解和分析过程&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>大佬&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-819934.htm"target="_blank" rel="external nofollow noopener noreferrer">珍惜Any&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-905443.htm"target="_blank" rel="external nofollow noopener noreferrer">随风而行aa&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-632473.htm"target="_blank" rel="external nofollow noopener noreferrer">hanbingle&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://bbs.kanxue.com/homepage-581423.htm"target="_blank" rel="external nofollow noopener noreferrer">roysue&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ol></description></item></channel></rss>

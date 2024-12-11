@@ -342,5 +342,5 @@ input()
 ---
 
 > 作者: 迷途小狼崽  
-> URL: http://localhost:1313/posts/android/frida/hook_java/  
+> URL: https://cronusqiu90.github.io/posts/android/frida/hook_java/  
 

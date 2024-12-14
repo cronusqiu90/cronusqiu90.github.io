@@ -6,15 +6,15 @@
     <description>迷途小狼崽的升级打怪之路</description>
     <generator>Hugo 0.139.2 &amp; FixIt v0.3.16-fda3fa66</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 11 Dec 2024 19:15:38 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 13 Dec 2024 20:20:47 +0800</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/draft/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>TCP 拥塞算法</title>
-      <link>http://localhost:1313/posts/network/%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Wed, 11 Dec 2024 19:15:38 +0800</pubDate>
-      <guid>http://localhost:1313/posts/network/%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/</guid>
+      <title>01 TCP 协议</title>
+      <link>http://localhost:1313/posts/network/01_tcp/</link>
+      <pubDate>Fri, 13 Dec 2024 20:20:47 +0800</pubDate>
+      <guid>http://localhost:1313/posts/network/01_tcp/</guid>
       <category domain="http://localhost:1313/categories/draft/">Draft</category>
-      <description>&lt;h2 id=&#34;基本概念&#34; class=&#34;heading-element&#34;&gt;&lt;span&gt;基本概念。&lt;/span&gt;&#xD;&#xA;  &lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e6%a6%82%e5%bf%b5&#34; class=&#34;heading-mark&#34;&gt;&#xD;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&lt;p&gt;在某段时间，若对网络中某一资源的需求超过了该资源所能提供的可用部分，网络性能就要变坏。这种情况就叫做拥塞。在计算机网络中的链路容量交换节点中的缓存和处理机等都是网络的资源。若出现拥塞而不进行控制整个网络的吞吐量将随输入负载的增大而下降。具有理想拥塞控制的网络在吞吐量达到饱和之前网络吞吐量应等于所输入的负载故吞吐量曲线是45度的斜线。但当输入负载超过某一限度时，由于网络资源受限吞吐量就不再增长，而保持水平线也就是吞吐量达到饱和。这就表明输入的负载中有一部分损失掉了。例如输入到网络中的某些分组被某个节点丢弃了。虽然如此，在这种理想的拥塞控制作用下，网络的吞吐量仍然维持在其所能达到的最大值。然而实际的网络情况就很不同了，我们再来看这条吞吐量曲线。随着输入负载的增大，网络吞吐量的增长率逐渐减小，也就是在网络吞吐量还未达到饱和时就已经有一部分的输入分组被丢弃了。当网络的吞吐量明显的小于理想的吞吐量时，网络就进入了轻度拥塞的状态。更值得注意的是，当输入负载到达某一数值时。网络的吞吐量，反而随输入负载的增大而减小这时网络就进入了拥塞状态，当输入负载继续增大，到某一数值时网络的吞吐量就减小为零，此时网络就无法工作了。这就是所谓的死锁，因此进行拥塞控制是非常有必要的实际的拥塞控制曲线，应该尽量接近理想的拥塞控制曲线。&lt;/p&gt;</description>
+      <description>&lt;h3 id=&#34;基础&#34; class=&#34;heading-element&#34;&gt;&lt;span&gt;基础&lt;/span&gt;&#xD;&#xA;  &lt;a href=&#34;#%e5%9f%ba%e7%a1%80&#34; class=&#34;heading-mark&#34;&gt;&#xD;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h3&gt;&lt;p&gt;分组窗口和滑动窗口&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

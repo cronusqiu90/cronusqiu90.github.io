@@ -1,4 +1,4 @@
-# 01. TCP 拥塞控制
+# TCP 拥塞控制
 
 
 
@@ -67,5 +67,5 @@
 ---
 
 > 作者: 迷途小狼崽  
-> URL: http://localhost:1313/posts/network/01_tcp%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/  
+> URL: https://cronusqiu90.github.io/posts/network/tcp%E6%8B%A5%E5%A1%9E%E7%AE%97%E6%B3%95/  
 

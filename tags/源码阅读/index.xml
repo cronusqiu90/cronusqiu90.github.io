@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>源码阅读 - 标签 - 迷途小狼崽</title>
+    <link>http://localhost:1313/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</link>
+    <description>迷途小狼崽的升级打怪之路</description>
+    <generator>Hugo 0.139.2 &amp; FixIt v0.3.16-fda3fa66</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 04 Dec 2024 23:12:21 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CPython源码阅读之五: 配置与输入</title>
+      <link>http://localhost:1313/posts/python/cpython_internals_5/</link>
+      <pubDate>Wed, 04 Dec 2024 23:12:21 +0800</pubDate>
+      <guid>http://localhost:1313/posts/python/cpython_internals_5/</guid>
+      <category domain="http://localhost:1313/categories/python/">Python</category>
+      <description>&lt;p&gt;There are many ways Python code can be run in CPython. Here are some of the most commonly used:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;By running python -c and a Python string&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;ol start=&#34;2&#34;&gt;&#xA;&lt;li&gt;By running python -m and the name of a module&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;ol start=&#34;3&#34;&gt;&#xA;&lt;li&gt;By running python [file] with the path to a ﬁle that containsPython code&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;ol start=&#34;4&#34;&gt;&#xA;&lt;li&gt;By piping Python code into the python executable over stdin, e.g.,cat [file] | python&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;ol start=&#34;5&#34;&gt;&#xA;&lt;li&gt;By starting a REPL and executing commands one at a time&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;ol start=&#34;6&#34;&gt;&#xA;&lt;li&gt;By using the C API and using Python as an embedded environment&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;在 Python 中有三个不同的配置阶段,分别用于不同的目的。&#xA;以下是这三种配置的详细解释及其配置的项目：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -42,12 +42,12 @@
 #### TCP 头部结构
 
 `TCP` 在 `IP 数据报`中的封装:
-![ip_datagram_with_tcp_segment](/img/network/tcp/ip数据报_tcp.png)
+![ip_datagram_with_tcp_segment](/img/network_tcp_ip_header.png)
 
 ----
 
 头部数据结构：
-![tcp_header](/img/network/tcp/head.png)
+![tcp_header](/img/network_tcp_header.png)
 
 
 - `Source Port`和`Destination Port`：标识了发送方和接收方的端口号；
@@ -163,7 +163,7 @@ Connection closed.
 ```
 
 
-![tcp连接断开抓包](/img/network/tcp/tcp_conn_close_cap.png)
+![tcp连接断开抓包](/img/network_tcp_conn_close_cap.png)
 
 ----
 
@@ -185,7 +185,7 @@ Connection closed.
 
 #### 发送窗口结构
 
-![发送窗口](/img/network/tcp/send_window_structure.png)
+![发送窗口](/img/network_tcp_send_window_structure.png)
 
 由接收端通告的窗口称为`提供窗口 (offered window)`，包含编号 4 ~ 9 字节。接收端已成功确认包括第 3 字节在内的之前的数据，并通告了一个 6 字节大小的窗口。随着时间推移，当接收到返回的数据 `ACK`， 滑动窗口也随之向右移动。
 
@@ -197,7 +197,7 @@ Connection closed.
 
 #### 接收窗口结构
 
-![接收窗口](/img/network/tcp/recv_window_structure.png)
+![接收窗口](/img/network_tcp_recv_window_structure.png)
 
 接收端的窗口结构就简单多了，记录了已接收并确认的数据，以及它能够接收的最大序列号。
 

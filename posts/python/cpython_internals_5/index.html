@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>CPython源码阅读之五: 配置与输入 - 迷途小狼崽</title><meta name="author" content="迷途小狼崽">
+<meta name="description" content="There are many ways Python code can be run in CPython. Here are some of the most commonly used:
+By running python -c and a Python string By running python -m and the name of a module By running python [file] with the path to a ﬁle that containsPython code By piping Python code into the python executable over stdin, e.g.,cat [file] | python By starting a REPL and executing commands one at a time By using the C API and using Python as an embedded environment 在 Python 中有三个不同的配置阶段,分别用于不同的目的。 以下是这三种配置的详细解释及其配置的项目：
+"><meta name="keywords" content='Python, 源码阅读'>
+  <meta itemprop="name" content="CPython源码阅读之五: 配置与输入">
+  <meta itemprop="description" content="There are many ways Python code can be run in CPython. Here are some of the most commonly used:
+By running python -c and a Python string By running python -m and the name of a module By running python [file] with the path to a ﬁle that containsPython code By piping Python code into the python executable over stdin, e.g.,cat [file] | python By starting a REPL and executing commands one at a time By using the C API and using Python as an embedded environment 在 Python 中有三个不同的配置阶段,分别用于不同的目的。 以下是这三种配置的详细解释及其配置的项目：">
+  <meta itemprop="datePublished" content="2024-12-04T23:12:21+08:00">
+  <meta itemprop="dateModified" content="2024-12-04T23:12:21+08:00">
+  <meta itemprop="wordCount" content="138">
+  <meta itemprop="keywords" content="Python,源码阅读"><meta property="og:url" content="http://localhost:1313/posts/python/cpython_internals_5/">
+  <meta property="og:site_name" content="迷途小狼崽">
+  <meta property="og:title" content="CPython源码阅读之五: 配置与输入">
+  <meta property="og:description" content="There are many ways Python code can be run in CPython. Here are some of the most commonly used:
+By running python -c and a Python string By running python -m and the name of a module By running python [file] with the path to a ﬁle that containsPython code By piping Python code into the python executable over stdin, e.g.,cat [file] | python By starting a REPL and executing commands one at a time By using the C API and using Python as an embedded environment 在 Python 中有三个不同的配置阶段,分别用于不同的目的。 以下是这三种配置的详细解释及其配置的项目：">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-04T23:12:21+08:00">
+    <meta property="article:modified_time" content="2024-12-04T23:12:21+08:00">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="源码阅读">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="CPython源码阅读之五: 配置与输入">
+  <meta name="twitter:description" content="There are many ways Python code can be run in CPython. Here are some of the most commonly used:
+By running python -c and a Python string By running python -m and the name of a module By running python [file] with the path to a ﬁle that containsPython code By piping Python code into the python executable over stdin, e.g.,cat [file] | python By starting a REPL and executing commands one at a time By using the C API and using Python as an embedded environment 在 Python 中有三个不同的配置阶段,分别用于不同的目的。 以下是这三种配置的详细解释及其配置的项目：">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="http://localhost:1313/posts/python/cpython_internals_5/" title="CPython源码阅读之五: 配置与输入 - 迷途小狼崽" /><link rel="prev" type="text/html" href="http://localhost:1313/posts/android/frida/hook_java/" title="Frida Hook Java层代码" /><link rel="next" type="text/html" href="http://localhost:1313/posts/python/basic/" title="Python 基础知识" /><link rel="alternate" type="text/markdown" href="http://localhost:1313/posts/python/cpython_internals_5/index.md" title="CPython源码阅读之五: 配置与输入 - 迷途小狼崽"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "CPython源码阅读之五: 配置与输入",
+    "inLanguage": "zh-cn",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "http:\/\/localhost:1313\/posts\/python\/cpython_internals_5\/"
+    },"genre": "posts","keywords": "Python, 源码阅读","wordcount":  138 ,
+    "url": "http:\/\/localhost:1313\/posts\/python\/cpython_internals_5\/","datePublished": "2024-12-04T23:12:21+08:00","dateModified": "2024-12-04T23:12:21+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "迷途小狼崽"
+      },"description": ""
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/" title="迷途小狼崽"><span class="header-title-text">迷途小狼崽</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item">
+              <a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item delimiter"></li><li class="menu-item theme-switch" title="切换主题">
+          <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+        </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/" title="迷途小狼崽"><span class="header-title-text">迷途小狼崽</span></a><span class="header-subtitle"></span></div>
+      <div class="menu-toggle" id="menu-toggle-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="menu-item"><a class="menu-link" href="/archives/"><i class="fa-solid fa-archive fa-fw fa-sm" aria-hidden="true"></i> Archives</a></li><li class="menu-item"><a class="menu-link" href="/categories/"><i class="fa-solid fa-folder-tree fa-fw fa-sm" aria-hidden="true"></i> Categories</a></li><li class="menu-item"><a class="menu-link" href="/tags/"><i class="fa-solid fa-tags fa-fw fa-sm" aria-hidden="true"></i> Tags</a></li><li class="menu-item menu-system">
+          <span class="menu-system-item theme-switch" title="切换主题"><i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i></span></li>
+      </ul>
+    </nav>
+  </div>
+</header><main class="container container-reverse"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>CPython源码阅读之五: 配置与输入</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><img loading="lazy" src="/images/avatar2.jpg" alt="迷途小狼崽" data-title="迷途小狼崽" width="20" height="20" class="avatar" style="background: url(/images/loading.min.svg) no-repeat center;" onload="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}this.dataset.lazyloaded='';" onerror="this.title=this.dataset.title;for(const i of ['style', 'data-title','onerror','onload']){this.removeAttribute(i);}"/>&nbsp;迷途小狼崽</span></span><span class="post-included-in">&nbsp;收录于 <a href="/categories/python/" class="post-category" title="分类 - Python"><i class="fa-regular fa-folder fa-fw" aria-hidden="true"></i> Python</a></span></div><div class="post-meta-line"><span title="发布于 2024-12-04 23:12:21"><i class="fa-solid fa-calendar-days fa-fw me-1" aria-hidden="true"></i><time datetime="2024-12-04">2024-12-04</time></span>&nbsp;<span title="138 字"><i class="fa-solid fa-pencil-alt fa-fw me-1" aria-hidden="true"></i>约 200 字</span>&nbsp;<span><i class="fa-regular fa-clock fa-fw me-1" aria-hidden="true"></i>预计阅读 1 分钟</span>&nbsp;</div>
+    </div><div class="content" id="content"><p>There are many ways Python code can be run in CPython. Here are some of the most commonly used:</p>
+<ul>
+<li>
+<ol>
+<li>By running python -c and a Python string</li>
+</ol>
+</li>
+<li>
+<ol start="2">
+<li>By running python -m and the name of a module</li>
+</ol>
+</li>
+<li>
+<ol start="3">
+<li>By running python [file] with the path to a ﬁle that containsPython code</li>
+</ol>
+</li>
+<li>
+<ol start="4">
+<li>By piping Python code into the python executable over stdin, e.g.,cat [file] | python</li>
+</ol>
+</li>
+<li>
+<ol start="5">
+<li>By starting a REPL and executing commands one at a time</li>
+</ol>
+</li>
+<li>
+<ol start="6">
+<li>By using the C API and using Python as an embedded environment</li>
+</ol>
+</li>
+</ul>
+<p>在 Python 中有三个不同的配置阶段,分别用于不同的目的。
+以下是这三种配置的详细解释及其配置的项目：</p>
+<ol>
+<li>预初始化配置（Pre-Initialization Configuration）
+预初始化配置主要用于在 Python 解释器完全启动之前设置必要的配置选项。这些配置通常在解释器初始化的早期阶段确定,确保在后续阶段有适当的设置。常见的项目包括：</li>
+</ol>
+<ul>
+<li>UTF-8模式 (utf8_mode)：设置是否启用 UTF-8 模式,影响字符编码的处理。</li>
+<li>开发模式 (dev_mode)：设置是否启用开发模式,影响错误处理和调试信息的输出。</li>
+<li>隔离模式 (isolated)：控制脚本的运行环境,决定是否使用用户的 site-packages。</li>
+<li>使用环境变量 (use_environment)：决定是否从环境变量读取配置。</li>
+<li>本地化设置 (configure_locale)：用于设置字符类别和字符处理方式的本地化。</li>
+</ul>
+<ol>
+<li>运行时配置（Runtime Configuration）
+运行时配置是在 Python 解释器启动后,根据用户的输入、环境变量等动态配置的选项。运行时配置主要包括：</li>
+</ol>
+<ul>
+<li>命令行参数解析 (parse_argv)：是否解析命令行参数,以控制解释器的行为。
+-缓冲标准输入输出 (buffered_stdio)：控制标准输入输出是否缓冲。</li>
+<li>详细模式 (verbose)：控制输出的详细程度,通常用于调试和信息记录。</li>
+<li>跳过源代码第一行 (skip_source_first_line)：决定是否跳过源代码的第一行,常用于某些特定的运行要求。</li>
+<li></li>
+</ul>
+<ol>
+<li>构建配置（Build Configuration）
+构建配置是涉及到 Python 解释器编译和链接时的设置,通常在构建阶段就已经确定。这些配置决定了 Python 解释器的各种底层功能和标准库的支持。常见的项目包括：</li>
+</ol>
+<ul>
+<li>内存分配器 (allocator)：指定使用哪种内存管理策略,通过环境变量进行配置。</li>
+<li>系统特定编码 (legacy_windows_fs_encoding)：在 Windows 系统上,决定是否使用传统的文件系统编码。</li>
+<li>扩展模块的支持：决定是否编译某些 C 扩展模块。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod">
+        <span title="更新于 2024-12-04 23:12:21">更新于 2024-12-04&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/posts/python/cpython_internals_5/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span></span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags fa-fw me-1" aria-hidden="true"></i><a href="/tags/python/" class="post-tag" title="标签 - Python">Python</a><a href="/tags/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" class="post-tag" title="标签 - 源码阅读">源码阅读</a></section>
+    <section>
+      <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/posts/android/frida/hook_java/" class="post-nav-item" rel="prev" title="Frida Hook Java层代码"><i class="fa-solid fa-angle-left fa-fw" aria-hidden="true"></i>Frida Hook Java层代码</a><a href="/posts/python/basic/" class="post-nav-item" rel="next" title="Python 基础知识">Python 基础知识<i class="fa-solid fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"></aside></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.139.2"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.3.16-fda3fa66"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright fa-fw" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2016 - 2024</span><span class="author" itemprop="copyrightHolder">
+              <a href="/">迷途小狼崽</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons animate__faster d-none"><div class="fixed-button back-to-top" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up fa-fw" aria-hidden="true"></i><span class="variant-numeric">0%</span>
+        </div></div><div id="mask"></div><div class="reading-progress-bar" style="left: 0;top: 0;"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="preload" href="/lib/katex/katex.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/katex/katex.min.css"></noscript><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><link rel="stylesheet" href="/lib/pace/themes/blue/pace-theme-minimal.css"><script src="/lib/katex/katex.min.js" defer></script><script src="/lib/katex/auto-render.min.js" defer></script><script src="/lib/katex/copy-tex.min.js" defer></script><script src="/lib/katex/mhchem.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/pace/pace.min.js" async defer></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","editLockTitle":"锁定可编辑代码块","editUnLockTitle":"解锁可编辑代码块","editable":true,"maxShownLines":10},"comment":{"enable":false},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验。"},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"version":"v0.3.16-fda3fa66"};console.log('Page config:', window.config);</script><script src="/js/theme.min.js" defer></script></body>
+</html>

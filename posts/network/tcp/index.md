@@ -6,7 +6,7 @@
 
 #### 分组窗口和滑动窗口
 
-![窗口](/img/network/tcp/windows.png)
+![窗口](/img/network_tcp_windows.png)
 
 
 上图显示了，当前三个分组窗口，整个窗口的大小是 3。

@@ -1,1 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Frida - 迷途小狼崽</title><link>https://cronusqiu90.github.io/posts/reverse/android/frida/</link><description>迷途小狼崽的升级打怪之路</description><generator>Hugo 0.139.2 &amp; FixIt v0.3.17-036cbb41</generator><language>zh-cn</language><lastBuildDate/><atom:link href="https://cronusqiu90.github.io/posts/reverse/android/frida/index.xml" rel="self" type="application/rss+xml"/></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Frida - 迷途小狼崽</title>
+    <link>http://localhost:1313/posts/reverse/android/frida/</link>
+    <description>迷途小狼崽的升级打怪之路</description>
+    <generator>Hugo 0.139.2 &amp; FixIt v0.3.17-036cbb41</generator>
+    <language>zh-cn</language>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/reverse/android/frida/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
